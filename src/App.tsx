@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { slides } from './content/slides';
-import { Language } from './content/types';
+import type { Language } from './content/types';
 import { uiTranslations } from './i18n';
-import { Monitor, Shield, AlertTriangle, ChevronRight, ChevronLeft, LayoutGrid, FileText, Smartphone } from 'lucide-react';
+import { Monitor, Shield, AlertTriangle, ChevronRight, ChevronLeft, LayoutGrid, Smartphone } from 'lucide-react';
 
 function App() {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);

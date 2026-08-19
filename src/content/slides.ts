@@ -1,4 +1,4 @@
-import { SlideDefinition } from './types';
+import type { SlideDefinition } from './types';
 
 import { Slide01_Title } from '../slides/TitleSlide';
 import { Slide02_Hook, Slide03_RealWorldProblem, Slide04_ProblemStatement, Slide05_WhyQubo, Slide06_ResearchAim, Slide07_ResearchGap, Slide08_NovelContributions } from '../slides/SlideContentPart1';

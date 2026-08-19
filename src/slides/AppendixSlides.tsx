@@ -12,11 +12,11 @@ export const Slide21_AppendixMath: React.FC<SlideProps> = ({ lang }) => (
     <div className="card" style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'left' }}>
       <h4 style={{ color: 'var(--accent-cyan)' }}>{lang === 'en' ? 'Scaling and Discretisation' : 'Ölçeklendirme ve Ayrıklaştırma'}</h4>
       <div style={{ fontFamily: 'var(--font-mono)', fontSize: '1.2rem', marginBottom: '2rem' }}>
-        x = x_min + \frac{x_max - x_min}{2^N - 1} \sum_{i=0}^{N-1} 2^i q_i
+        {"x = x_min + \\frac{x_max - x_min}{2^N - 1} \\sum_{i=0}^{N-1} 2^i q_i"}
       </div>
       <h4 style={{ color: 'var(--accent-violet)' }}>{lang === 'en' ? 'Quadratic Penalty Formulation' : 'Karesel Ceza Formülasyonu'}</h4>
       <div style={{ fontFamily: 'var(--font-mono)', fontSize: '1.2rem' }}>
-        P(x) = \lambda \left[ \sum_{j} \max(0, g_j(x))^2 \right]
+        {"P(x) = \\lambda \\left[ \\sum_{j} \\max(0, g_j(x))^2 \\right]"}
       </div>
     </div>
   </div>
