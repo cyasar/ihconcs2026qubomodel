@@ -56,7 +56,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 4rem;
+  padding: 8rem 4rem 5rem 4rem; /* top right bottom left to prevent header overlap */
   max-width: 1400px;
   margin: 0 auto;
   text-align: center;
