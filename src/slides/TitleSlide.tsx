@@ -5,20 +5,6 @@ export const Slide01_Title: React.FC<SlideProps> = ({ lang }) => {
   return (
     <div className="slide-content" style={{ display: 'flex', flexDirection: 'column', height: '100%', padding: '2rem' }}>
       
-      {/* Top Header - Conference Logos */}
-      <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', marginBottom: 'auto', padding: '1rem', background: 'rgba(255,255,255,0.02)', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
-        <img src="./ihconcs_logo.png" alt="IHCONCS Logo" style={{ height: '60px', objectFit: 'contain' }} />
-        <div style={{ textAlign: 'center' }}>
-          <h4 style={{ margin: '0 0 0.2rem 0', color: 'var(--text-primary)' }}>
-            {lang === 'en' ? 'The International Conference on Computer Sciences (IHCONCS 2026)' : 'Uluslararası Bilgisayar Bilimleri Konferansı (IHCONCS 2026)'}
-          </h4>
-          <p style={{ margin: '0', fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
-            {lang === 'en' ? 'September 17-18, 2026 • Zagreb, Croatia (Hybrid)' : '17-18 Eylül 2026 • Zagreb, Hırvatistan (Hibrit)'}
-          </p>
-        </div>
-        <img src="./ihconcs.png" alt="IHCONCS" style={{ height: '60px', objectFit: 'contain' }} />
-      </div>
-
       {/* Main Title Section */}
       <div style={{ margin: 'auto 0' }}>
         <h1 style={{ 

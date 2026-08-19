@@ -101,6 +101,36 @@ function App() {
         </button>
       </div>
 
+      {/* Persistent Top Header */}
+      <div style={{ 
+        position: 'absolute', 
+        top: '1.5rem', 
+        left: '50%', 
+        transform: 'translateX(-50%)',
+        display: 'flex', 
+        alignItems: 'center',
+        justifyContent: 'center', 
+        gap: '2rem', 
+        padding: '0.6rem 2rem', 
+        background: 'rgba(26, 29, 36, 0.8)', 
+        borderRadius: '12px', 
+        border: '1px solid var(--border-color)',
+        zIndex: 90,
+        backdropFilter: 'blur(10px)',
+        boxShadow: '0 4px 20px rgba(0,0,0,0.3)'
+      }}>
+        <img src="./ihconcs_logo.png" alt="IHCONCS Logo" style={{ height: '35px', objectFit: 'contain' }} />
+        <div style={{ textAlign: 'center' }}>
+          <h4 style={{ margin: '0 0 0.2rem 0', color: 'var(--text-primary)', fontSize: '0.9rem' }}>
+            {lang === 'en' ? 'The International Conference on Computer Sciences (IHCONCS 2026)' : 'Uluslararası Bilgisayar Bilimleri Konferansı (IHCONCS 2026)'}
+          </h4>
+          <p style={{ margin: '0', fontSize: '0.7rem', color: 'var(--text-secondary)' }}>
+            {lang === 'en' ? 'September 17-18, 2026 • Zagreb, Croatia (Hybrid)' : '17-18 Eylül 2026 • Zagreb, Hırvatistan (Hibrit)'}
+          </p>
+        </div>
+        <img src="./ihconcs.png" alt="IHCONCS" style={{ height: '35px', objectFit: 'contain' }} />
+      </div>
+
       <CurrentSlideComponent lang={lang} safeMode={safeMode} />
 
       {showNotes && (
