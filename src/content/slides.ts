@@ -18,6 +18,16 @@ export const slides: SlideDefinition[] = [
     notesKk: "Сызықтық емес шектеулі оңтайландыру мәселелеріне арналған QUBO негізіндегі қайта тұжырымдау жүйесі туралы презентациямызға қош келдіңіздер."
   },
   {
+    id: "06",
+    component: Slide06_ResearchAim,
+    titleEn: "Research Aim",
+    titleTr: "Araştırmanın Amacı",
+    titleKk: "Зерттеу мақсаты",
+    notesEn: "Our goal is a transparent, reproducible pipeline. Not just solving a problem, but providing a framework.",
+    notesTr: "Amacımız şeffaf ve tekrarlanabilir bir ardışık düzen kurmaktır. Sadece bir problemi çözmek değil, bir çerçeve sunmaktır.",
+    notesKk: "Біздің мақсатымыз — ашық және қайталанатын жұмыс процесін құру. Тек мәселені шешу ғана емес, негізін ұсыну."
+  },
+  {
     id: "02",
     component: Slide02_Hook,
     titleEn: "The Hook",
@@ -66,16 +76,6 @@ export const slides: SlideDefinition[] = [
     notesEn: "Here we contrast the Classical approach with the QUBO model and highlight its quantum-ready advantages.",
     notesTr: "Burada Klasik yaklaşım ile QUBO modelini karşılaştırıyor ve kuantuma hazır olmasının avantajlarını vurguluyoruz.",
     notesKk: "Мұнда біз Классикалық тәсілді QUBO моделімен салыстырамыз және оның кванттық дайындығының артықшылықтарын көрсетеміз."
-  },
-  {
-    id: "06",
-    component: Slide06_ResearchAim,
-    titleEn: "Research Aim",
-    titleTr: "Araştırmanın Amacı",
-    titleKk: "Зерттеу мақсаты",
-    notesEn: "Our goal is a transparent, reproducible pipeline. Not just solving a problem, but providing a framework.",
-    notesTr: "Amacımız şeffaf ve tekrarlanabilir bir ardışık düzen kurmaktır. Sadece bir problemi çözmek değil, bir çerçeve sunmaktır.",
-    notesKk: "Біздің мақсатымыз — ашық және қайталанатын жұмыс процесін құру. Тек мәселені шешу ғана емес, негізін ұсыну."
   },
   {
     id: "07",
