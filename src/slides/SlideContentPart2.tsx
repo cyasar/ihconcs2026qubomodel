@@ -106,47 +106,140 @@ export const Slide09_CaseStudy: React.FC<SlideProps> = ({ lang }) => {
   );
 };
 
-export const Slide10_NonlinearObjective: React.FC<SlideProps> = ({ lang }) => (
-  <div className="slide-content">
-    <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>
-      {lang === 'en' ? 'Why Is the Problem Nonlinear?' : 
-       lang === 'tr' ? 'Problem Neden Doğrusal Değildir?' : 
-       'Мәселе неліктен сызықтық емес?'}
-    </h2>
-    <p style={{ color: 'var(--text-secondary)', fontSize: '1.2rem', marginBottom: '2rem' }}>
-      {lang === 'en' ? 'Revenue increases with production. But cost also increases nonlinearly.' : 
-       lang === 'tr' ? 'Gelir üretimle birlikte artar. Ancak maliyetler de doğrusal olmayan bir şekilde artar.' : 
-       'Табыс өндіріспен бірге өседі. Бірақ шығындар да сызықтық емес түрде артады.'}
-    </p>
+export const Slide10_NonlinearObjective: React.FC<SlideProps> = ({ lang }) => {
+  const [activeReason, setActiveReason] = useState(0);
 
-    <div className="grid-2-col" style={{ alignItems: 'start' }}>
-      <div style={{ textAlign: 'left' }}>
-        <h4 style={{ color: 'var(--accent-violet)' }}>{lang === 'en' ? 'Possible reasons for nonlinearity:' : lang === 'tr' ? 'Doğrusal olmamanın olası nedenleri:' : 'Сызықтық еместіктің ықтимал себептері:'}</h4>
-        <ul style={{ fontSize: '1.1rem', lineHeight: '2', color: 'var(--text-primary)', background: 'rgba(142,36,170,0.05)', padding: '2rem 3rem', borderRadius: '12px', border: '1px solid rgba(142,36,170,0.2)' }}>
-          <li>{lang === 'en' ? 'overtime labour' : lang === 'tr' ? 'fazla mesai maliyetleri' : 'үстеме жұмыс шығындары'}</li>
-          <li>{lang === 'en' ? 'machine wear' : lang === 'tr' ? 'makine yıpranması' : 'машинаның тозуы'}</li>
-          <li>{lang === 'en' ? 'storage limitations' : lang === 'tr' ? 'depolama sınırları' : 'сақтау шектеулері'}</li>
-          <li>{lang === 'en' ? 'coordination cost' : lang === 'tr' ? 'koordinasyon maliyeti' : 'үйлестіру шығыны'}</li>
-          <li>{lang === 'en' ? 'production interference' : lang === 'tr' ? 'üretim çakışmaları' : 'өндірістегі кедергілер'}</li>
-        </ul>
-      </div>
+  const reasons = [
+    { 
+      en: 'Linear Expectation (Ideal)', tr: 'Doğrusal Beklenti (İdeal)', kk: 'Сызықтық күту (Идеал)',
+      formula: (x: number) => x * 0.8,
+      color: '#4caf50',
+      desc: { en: 'Without real-world friction, profit grows infinitely in a straight line.', tr: 'Gerçek dünya sürtünmeleri olmadan, kâr düz bir çizgide sonsuza kadar büyür.', kk: 'Нақты әлемдегі кедергілерсіз пайда тікелей сызықпен шексіз өседі.' }
+    },
+    { 
+      en: 'Overtime Labour (-x²)', tr: 'Fazla Mesai Maliyetleri (-x²)', kk: 'Үстеме жұмыс шығындары (-x²)',
+      formula: (x: number) => (x * 0.8) - (0.008 * x * x),
+      color: '#ff9800',
+      desc: { en: 'Pushing production means paying overtime. Cost grows quadratically.', tr: 'Üretimi zorlamak fazla mesai ödemek demektir. Maliyet karesel olarak artar.', kk: 'Өндірісті арттыру үстеме жұмыс төлеуді білдіреді. Шығын квадраттық түрде өседі.' }
+    },
+    { 
+      en: 'Machine Wear (-x³)', tr: 'Makine Yıpranması (-x³)', kk: 'Машинаның тозуы (-x³)',
+      formula: (x: number) => (x * 0.8) - (0.00015 * x * x * x),
+      color: '#f44336',
+      desc: { en: 'Overused machines break down faster. Efficiency drops exponentially.', tr: 'Aşırı kullanılan makineler daha hızlı bozulur. Verimlilik üstel olarak düşer.', kk: 'Шамадан тыс пайдаланылған машиналар тезірек бұзылады. Тиімділік экспоненциалды түрде төмендейді.' }
+    },
+    { 
+      en: 'Storage Limits (Penalty)', tr: 'Depolama Sınırları (Ceza)', kk: 'Сақтау шектеулері (Жаза)',
+      formula: (x: number) => x < 50 ? (x * 0.8) : (x * 0.8) - ((x - 50) * 1.5),
+      color: 'var(--accent-violet)',
+      desc: { en: 'Exceeding warehouse capacity forces expensive external storage rentals.', tr: 'Depo kapasitesini aşmak, pahalı harici depo kiralamayı zorunlu kılar.', kk: 'Қойма сыйымдылығынан асу қымбат сыртқы сақтау орындарын жалға алуға мәжбүр етеді.' }
+    }
+  ];
 
-      <div style={{ background: 'var(--bg-secondary)', padding: '2rem', borderRadius: '12px', border: '1px solid var(--border-color)' }}>
-        <div style={{ width: '100%', height: '300px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,0,0,0.5)', borderRadius: '8px', position: 'relative', overflow: 'hidden' }}>
-          {/* Conceptual Profit Surface using simple CSS gradients */}
-          <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at center, rgba(76, 175, 80, 0.4) 0%, rgba(244, 67, 54, 0.3) 100%)', opacity: 0.8 }}></div>
+  const t = (obj: { en: string; tr: string; kk: string }) => lang === 'en' ? obj.en : lang === 'tr' ? obj.tr : obj.kk;
+
+  // Generate SVG path for the active reason
+  const generatePath = (formula: (x: number) => number) => {
+    let path = 'M 0 100'; // start at bottom left (0,0 mapped to 0,100 in svg viewbox)
+    for (let x = 0; x <= 100; x += 5) {
+      const y = formula(x);
+      // Map y from 0-80 to svg 100-0
+      const svgY = Math.max(0, 100 - (y * (100/80))); 
+      path += ` L ${x} ${svgY}`;
+    }
+    return path;
+  };
+
+  return (
+    <div className="slide-content">
+      <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>
+        {lang === 'en' ? 'Why Is the Problem Nonlinear?' : 
+         lang === 'tr' ? 'Problem Neden Doğrusal Değildir?' : 
+         'Мәселе неліктен сызықтық емес?'}
+      </h2>
+      <p style={{ color: 'var(--text-secondary)', fontSize: '1.2rem', marginBottom: '2rem' }}>
+        {lang === 'en' ? 'In linear programming, more production always equals more profit. In reality, scaling introduces friction.' : 
+         lang === 'tr' ? 'Doğrusal programlamada daha fazla üretim daima daha fazla kâr demektir. Gerçekte ise ölçekleme sürtünme yaratır.' : 
+         'Сызықтық бағдарламалауда көбірек өндіріс әрқашан көбірек пайда әкеледі. Шындығында, масштабтау кедергілер тудырады.'}
+      </p>
+
+      <div className="grid-2-col" style={{ alignItems: 'start', gap: '3rem' }}>
+        
+        {/* Left: Clickable Reasons */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <h4 style={{ color: 'var(--text-primary)', marginBottom: '0.5rem' }}>{lang === 'en' ? 'Select a factor:' : lang === 'tr' ? 'Bir faktör seçin:' : 'Факторды таңдаңыз:'}</h4>
           
-          {/* Grid lines */}
-          <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)', backgroundSize: '40px 40px', transform: 'perspective(500px) rotateX(60deg) scale(2)', transformOrigin: 'top' }}></div>
+          {reasons.map((reason, idx) => (
+            <div 
+              key={idx}
+              onClick={() => setActiveReason(idx)}
+              style={{
+                padding: '1.2rem',
+                background: activeReason === idx ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.02)',
+                border: `1px solid ${activeReason === idx ? reason.color : 'var(--border-color)'}`,
+                borderRadius: '8px',
+                cursor: 'pointer',
+                transition: 'all 0.3s',
+                transform: activeReason === idx ? 'translateX(10px)' : 'none',
+                boxShadow: activeReason === idx ? `0 4px 15px ${reason.color}33` : 'none'
+              }}
+            >
+              <div style={{ fontWeight: 'bold', fontSize: '1.1rem', color: activeReason === idx ? reason.color : 'var(--text-primary)', marginBottom: '0.5rem' }}>
+                {t(reason)}
+              </div>
+              {activeReason === idx && (
+                <div style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', animation: 'fadeIn 0.3s ease-out' }}>
+                  {t(reason.desc)}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* Right: Dynamic Graph */}
+        <div style={{ background: 'var(--bg-secondary)', padding: '2rem', borderRadius: '12px', border: '1px solid var(--border-color)' }}>
+          <h4 style={{ color: 'white', textAlign: 'center', marginBottom: '1rem' }}>
+            {lang === 'en' ? 'Profit vs Production Volume' : lang === 'tr' ? 'Kâr vs Üretim Hacmi' : 'Пайда және Өндіріс көлемі'}
+          </h4>
           
-          <div style={{ position: 'relative', zIndex: 1, padding: '1rem', background: 'rgba(0,0,0,0.8)', border: '1px solid var(--accent-cyan)', borderRadius: '8px', color: 'white', fontWeight: 'bold' }}>
-            {lang === 'en' ? 'Conceptual Profit Surface' : lang === 'tr' ? 'Kavramsal Kâr Yüzeyi' : 'Тұжырымдамалық пайда беті'}
+          <div style={{ position: 'relative', width: '100%', height: '300px', background: 'rgba(0,0,0,0.3)', borderRadius: '8px', overflow: 'visible' }}>
+            {/* Axis labels */}
+            <div style={{ position: 'absolute', bottom: '-25px', left: '50%', transform: 'translateX(-50%)', color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Production Volume (x) →</div>
+            <div style={{ position: 'absolute', left: '-30px', top: '50%', transform: 'translateY(-50%) rotate(-90deg)', color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Profit →</div>
+            
+            <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none" style={{ position: 'absolute', inset: 0, overflow: 'visible' }}>
+              {/* Grid */}
+              <pattern id="grid2" width="10" height="10" patternUnits="userSpaceOnUse">
+                <path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="0.5" />
+              </pattern>
+              <rect width="100" height="100" fill="url(#grid2)" />
+
+              {/* Base Linear Line (Ghosted) */}
+              <path d={generatePath(reasons[0].formula)} fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="1" strokeDasharray="2,2" />
+              
+              {/* Active Curve */}
+              <path 
+                d={generatePath(reasons[activeReason].formula)} 
+                fill="none" 
+                stroke={reasons[activeReason].color} 
+                strokeWidth="3" 
+                style={{ transition: 'd 0.5s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.3s' }}
+              />
+
+              {/* Fill under curve */}
+              <path 
+                d={`${generatePath(reasons[activeReason].formula)} L 100 100 L 0 100 Z`} 
+                fill={reasons[activeReason].color}
+                opacity="0.1"
+                style={{ transition: 'd 0.5s cubic-bezier(0.4, 0, 0.2, 1), fill 0.3s' }}
+              />
+            </svg>
           </div>
         </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 export const Slide11_FeasibleRegion: React.FC<SlideProps> = ({ lang }) => {
   const [hoverPt, setHoverPt] = useState<{ x1: number, x2: number, px: number, py: number } | null>(null);
