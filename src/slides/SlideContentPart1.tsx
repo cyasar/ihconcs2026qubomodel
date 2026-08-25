@@ -202,28 +202,72 @@ export const Slide05_WhyQubo: React.FC<SlideProps> = ({ lang }) => (
 );
 
 export const Slide05b_QuboAdvantages: React.FC<SlideProps> = ({ lang }) => (
-  <div className="slide-content">
-    <h2 style={{ fontSize: '2.5rem', marginBottom: '3rem' }}>
+  <div className="slide-content" style={{ display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'center' }}>
+    <h2 style={{ fontSize: '2.5rem', marginBottom: '2rem' }}>
       {lang === 'en' ? 'Classical vs QUBO & Advantages' : 
        lang === 'tr' ? 'Klasik vs QUBO ve QUBO\'nun Avantajları' : 
        'Классикалық және QUBO және оның артықшылықтары'}
     </h2>
-    <div className="grid-2-col" style={{ alignItems: 'stretch' }}>
-      <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: '1rem', background: 'rgba(255,255,255,0.02)' }}>
-        <h3 style={{ color: '#9e9e9e' }}>{lang === 'en' ? 'Classical Optimisation' : lang === 'tr' ? 'Klasik Optimizasyon' : 'Классикалық оңтайландыру'}</h3>
-        <ul style={{ textAlign: 'left', lineHeight: '2', fontSize: '1.2rem', color: 'var(--text-secondary)' }}>
-          <li>{lang === 'en' ? 'Uses gradients, Hessians, and derivatives.' : lang === 'tr' ? 'Gradyanları ve türevleri kullanır.' : 'Градиенттер мен туындыларды пайдаланады.'}</li>
-          <li>{lang === 'en' ? 'Handles constraints naturally (e.g. Interior Point, SLSQP).' : lang === 'tr' ? 'Kısıtları doğal olarak işler (ör. İç Nokta, SLSQP).' : 'Шектеулерді табиғи түрде өңдейді.'}</li>
-          <li>{lang === 'en' ? 'May get stuck in local optima for highly non-convex spaces.' : lang === 'tr' ? 'Dışbükey olmayan alanlarda yerel optimuma takılabilir.' : 'Жергілікті оңтайлы нүктелерде қалып қоюы мүмкін.'}</li>
-        </ul>
+    
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', flex: 1, alignItems: 'stretch' }}>
+      {/* TEXT SIDE */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', justifyContent: 'center' }}>
+        
+        <div style={{ padding: '1.5rem', background: 'rgba(255,255,255,0.02)', borderLeft: '4px solid #9e9e9e', borderRadius: '0 12px 12px 0' }}>
+          <h3 style={{ color: '#9e9e9e', marginTop: 0, fontSize: '1.3rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <span>🚶</span> {lang === 'en' ? 'Classical Optimisation' : lang === 'tr' ? 'Klasik Optimizasyon' : 'Классикалық оңтайландыру'}
+          </h3>
+          <ul style={{ margin: 0, paddingLeft: '1.5rem', lineHeight: '1.6', fontSize: '1.1rem', color: 'var(--text-secondary)' }}>
+            <li>{lang === 'en' ? 'Uses gradients (derivatives) to walk downhill.' : lang === 'tr' ? 'Aşağı inmek için gradyanları (türevleri) kullanır.' : 'Градиенттер мен туындыларды пайдаланады.'}</li>
+            <li>{lang === 'en' ? 'Prone to getting trapped in Local Minima.' : lang === 'tr' ? 'Yerel minimumlara (Local Minima) hapsolmaya eğilimlidir.' : 'Жергілікті оңтайлы нүктелерде қалып қоюы мүмкін.'}</li>
+          </ul>
+        </div>
+
+        <div style={{ padding: '1.5rem', background: 'rgba(142,36,170,0.05)', borderLeft: '4px solid var(--accent-violet)', borderRadius: '0 12px 12px 0', boxShadow: '0 10px 30px rgba(142,36,170,0.1)' }}>
+          <h3 style={{ color: 'var(--accent-violet)', marginTop: 0, fontSize: '1.3rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <span>🚀</span> {lang === 'en' ? 'QUBO Model (Quantum Advantage)' : lang === 'tr' ? 'QUBO Modeli (Kuantum Avantajı)' : 'QUBO моделі'}
+          </h3>
+          <ul style={{ margin: 0, paddingLeft: '1.5rem', lineHeight: '1.6', fontSize: '1.1rem', color: 'var(--text-primary)' }}>
+            <li>{lang === 'en' ? 'Maps directly to Quantum Hardware (Ising Model).' : lang === 'tr' ? 'Kuantum donanımlarına (Ising Modeli) doğrudan eşlenir.' : 'Кванттық жабдық үшін Ising моделіне тікелей бейнеленеді.'}</li>
+            <li>{lang === 'en' ? 'Evaluates many states simultaneously.' : lang === 'tr' ? 'Birçok durumu aynı anda değerlendirir.' : 'Көптеген жағдайларды бір уақытта бағалайды.'}</li>
+            <li style={{ color: 'var(--accent-cyan)', fontWeight: 'bold' }}>{lang === 'en' ? 'Finds the Global Minimum via Quantum Tunneling.' : lang === 'tr' ? 'Kuantum Tünelleme ile doğrudan Global Minimumu bulur.' : 'Кванттық туннельдеу арқылы жаһандық минималды табады.'}</li>
+          </ul>
+        </div>
+
       </div>
-      <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: '1rem', border: '1px solid var(--accent-violet)', background: 'rgba(142,36,170,0.05)' }}>
-        <h3 style={{ color: 'var(--accent-violet)' }}>{lang === 'en' ? 'QUBO Model' : lang === 'tr' ? 'QUBO Modeli' : 'QUBO моделі'}</h3>
-        <ul style={{ textAlign: 'left', lineHeight: '2', fontSize: '1.2rem', color: 'var(--text-primary)' }}>
-          <li>{lang === 'en' ? 'Unconstrained, binary decision variables (bits/qubits).' : lang === 'tr' ? 'Kısıtsız, ikili (binary) karar değişkenleri.' : 'Шектеусіз, екілік шешім айнымалылары.'}</li>
-          <li>{lang === 'en' ? 'Maps directly to the Ising Model for Quantum hardware.' : lang === 'tr' ? 'Kuantum donanımları için Ising Modeline doğrudan eşlenir.' : 'Кванттық жабдық үшін Ising моделіне тікелей бейнеленеді.'}</li>
-          <li>{lang === 'en' ? 'Finds the global minimum energy state via quantum tunneling or annealing.' : lang === 'tr' ? 'Kuantum tünelleme ile global minimum enerji durumunu bulur.' : 'Кванттық туннельдеу арқылы жаһандық минималды энергия күйін табады.'}</li>
-        </ul>
+
+      {/* VISUAL SIDE */}
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: 'var(--bg-secondary)', borderRadius: '16px', border: '1px solid var(--border-color)', padding: '2rem', position: 'relative' }}>
+        <h4 style={{ color: 'var(--text-secondary)', marginBottom: '2rem', fontSize: '1.2rem', textAlign: 'center' }}>
+          {lang === 'en' ? 'Local vs Global Minimum Visualization' : lang === 'tr' ? 'Yerel ve Global Minimum Görselleştirmesi' : 'Көрнекілік'}
+        </h4>
+        
+        <svg viewBox="0 0 400 200" style={{ width: '100%', maxWidth: '350px', filter: 'drop-shadow(0 10px 20px rgba(0,0,0,0.5))' }}>
+          {/* Energy Landscape Curve */}
+          <path d="M 20 50 Q 80 180 150 120 T 260 60 T 380 160" fill="none" stroke="#546e7a" strokeWidth="4" strokeLinecap="round" />
+          
+          {/* Labels for Minima */}
+          <text x="110" y="150" fill="#9e9e9e" fontSize="12" fontWeight="bold">{lang === 'en' ? 'Local Min' : 'Yerel Min'}</text>
+          <text x="360" y="190" fill="var(--accent-cyan)" fontSize="14" fontWeight="bold" textAnchor="middle">{lang === 'en' ? 'Global Min' : 'Global Min'}</text>
+
+          {/* Classical Path (Stuck in Local Min) */}
+          <circle cx="100" cy="126" r="8" fill="#ff9800" />
+          <path d="M 40 75 Q 70 126 100 126" fill="none" stroke="#ff9800" strokeWidth="2" strokeDasharray="4,4" />
+          <text x="50" y="60" fill="#ff9800" fontSize="12">{lang === 'en' ? 'Classical' : 'Klasik'}</text>
+
+          {/* QUBO Quantum Tunneling Path */}
+          <path d="M 115 130 Q 240 160 375 160" fill="none" stroke="var(--accent-violet)" strokeWidth="3" strokeDasharray="6,4" />
+          <circle cx="375" cy="160" r="8" fill="var(--accent-cyan)" />
+          
+          <rect x="180" y="125" width="100" height="24" rx="12" fill="var(--accent-violet)" opacity="0.8" />
+          <text x="230" y="141" fill="white" fontSize="11" fontWeight="bold" textAnchor="middle">{lang === 'en' ? 'Quantum Tunneling' : lang === 'tr' ? 'Kuantum Tünelleme' : 'Туннельдеу'}</text>
+        </svg>
+
+        <p style={{ marginTop: '2rem', fontSize: '0.95rem', color: 'var(--text-secondary)', textAlign: 'center', fontStyle: 'italic' }}>
+          {lang === 'en' ? 'While classical solvers get trapped in local valleys, quantum approaches can tunnel through barriers to find the optimal solution.' : 
+           lang === 'tr' ? 'Klasik çözücüler yerel vadilere hapsolurken, kuantum yaklaşımları engellerin içinden tünel açarak optimum çözümü bulabilir.' : 
+           'Классикалық шешімдер жергілікті алқаптарда қалып қойғанда, кванттық тәсілдер кедергілерден өтіп, оңтайлы шешімді табады.'}
+        </p>
       </div>
     </div>
   </div>
