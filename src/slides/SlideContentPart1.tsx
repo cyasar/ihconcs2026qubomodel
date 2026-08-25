@@ -146,45 +146,55 @@ export const Slide04_ProblemStatement: React.FC<SlideProps> = ({ lang }) => (
 
 export const Slide05_WhyQubo: React.FC<SlideProps> = ({ lang }) => (
   <div className="slide-content">
-    <h2 style={{ fontSize: '2.5rem', marginBottom: '3rem' }}>
+    <h2 style={{ fontSize: '2.5rem', marginBottom: '1.5rem' }}>
       {lang === 'en' ? 'Why Is Reformulation Necessary?' : 
        lang === 'tr' ? 'Yeniden Formülasyon Neden Gereklidir?' : 
        'Неліктен қайта тұжырымдау қажет?'}
     </h2>
     
-    <div style={{ display: 'flex', gap: '1rem', width: '100%', alignItems: 'center', justifyContent: 'center' }}>
+    <div style={{ display: 'flex', gap: '1rem', width: '100%', alignItems: 'stretch', justifyContent: 'center' }}>
       
       {/* Real Problem */}
-      <div style={{ flex: 1, padding: '2rem', background: 'rgba(255, 61, 0, 0.05)', border: '1px solid rgba(255, 61, 0, 0.2)', borderRadius: '12px' }}>
-        <h3 style={{ color: '#ff3d00', fontSize: '1.5rem', textAlign: 'center' }}>
+      <div style={{ flex: 1, padding: '1.5rem', background: 'rgba(255, 61, 0, 0.05)', border: '1px solid rgba(255, 61, 0, 0.2)', borderRadius: '12px', display: 'flex', flexDirection: 'column' }}>
+        <h3 style={{ color: '#ff3d00', fontSize: '1.4rem', textAlign: 'center', marginBottom: '1rem' }}>
           {lang === 'en' ? 'REAL PROBLEM' : lang === 'tr' ? 'GERÇEK PROBLEM' : 'НАҚТЫ МӘСЕЛЕ'}
         </h3>
-        <ul style={{ listStyle: 'none', padding: 0, fontSize: '1.4rem', lineHeight: '2.5', textAlign: 'center', color: '#e0e0e0' }}>
+        <ul style={{ listStyle: 'none', padding: 0, fontSize: '1.2rem', lineHeight: '2', textAlign: 'center', color: '#e0e0e0', flex: 1 }}>
           <li>{lang === 'en' ? 'Continuous' : lang === 'tr' ? 'Sürekli (Continuous)' : 'Үздіксіз (Continuous)'}</li>
           <li>{lang === 'en' ? 'Constrained' : lang === 'tr' ? 'Kısıtlı (Constrained)' : 'Шектеулі (Constrained)'}</li>
           <li>{lang === 'en' ? 'Nonlinear' : lang === 'tr' ? 'Doğrusal Olmayan (Nonlinear)' : 'Сызықтық емес (Nonlinear)'}</li>
         </ul>
+        <div style={{ marginTop: '1rem', padding: '1rem', background: 'rgba(0,0,0,0.5)', borderRadius: '8px', fontSize: '1.1rem', fontFamily: 'monospace', textAlign: 'center', color: '#ff9800', lineHeight: '1.5' }}>
+          min f(x) = x₁³ - x₁x₂²<br/>
+          <span style={{ color: 'var(--text-secondary)' }}>s.t.</span> x₁ + x₂ ≤ 10<br/>
+          x₁, x₂ ∈ ℝ
+        </div>
       </div>
 
       {/* Reformulation Bridge */}
-      <div style={{ flex: 0.5, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
+      <div style={{ flex: 0.5, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '1rem' }}>
         <div style={{ height: '3px', width: '100%', background: 'linear-gradient(90deg, transparent, var(--text-secondary), transparent)' }}></div>
-        <div style={{ padding: '1rem', background: 'var(--text-secondary)', color: 'var(--bg-color)', fontWeight: 'bold', borderRadius: '30px', letterSpacing: '2px', fontSize: '1.2rem', boxShadow: '0 0 20px rgba(255,255,255,0.2)' }}>
+        <div style={{ padding: '1rem', background: 'var(--text-secondary)', color: 'var(--bg-color)', fontWeight: 'bold', borderRadius: '30px', letterSpacing: '2px', fontSize: '1.1rem', boxShadow: '0 0 20px rgba(255,255,255,0.2)', textAlign: 'center' }}>
           {lang === 'en' ? 'REFORMULATION' : lang === 'tr' ? 'YENİDEN FORMÜLASYON' : 'ҚАЙТА ТҰЖЫРЫМДАУ'}
         </div>
         <div style={{ height: '3px', width: '100%', background: 'linear-gradient(90deg, transparent, var(--text-secondary), transparent)' }}></div>
       </div>
 
       {/* QUBO World */}
-      <div style={{ flex: 1, padding: '2rem', background: 'rgba(142, 36, 170, 0.05)', border: '1px solid rgba(142, 36, 170, 0.3)', borderRadius: '12px' }}>
-        <h3 style={{ color: 'var(--accent-violet)', fontSize: '1.5rem', textAlign: 'center' }}>
+      <div style={{ flex: 1, padding: '1.5rem', background: 'rgba(142, 36, 170, 0.05)', border: '1px solid rgba(142, 36, 170, 0.3)', borderRadius: '12px', display: 'flex', flexDirection: 'column' }}>
+        <h3 style={{ color: 'var(--accent-violet)', fontSize: '1.4rem', textAlign: 'center', marginBottom: '1rem' }}>
           {lang === 'en' ? 'QUBO WORLD' : lang === 'tr' ? 'QUBO DÜNYASI' : 'QUBO ӘЛЕМІ'}
         </h3>
-        <ul style={{ listStyle: 'none', padding: 0, fontSize: '1.4rem', lineHeight: '2.5', textAlign: 'center', color: '#e0e0e0' }}>
+        <ul style={{ listStyle: 'none', padding: 0, fontSize: '1.2rem', lineHeight: '2', textAlign: 'center', color: '#e0e0e0', flex: 1 }}>
           <li>{lang === 'en' ? 'Binary' : lang === 'tr' ? 'İkili (Binary)' : 'Екілік (Binary)'}</li>
           <li>{lang === 'en' ? 'Unconstrained' : lang === 'tr' ? 'Kısıtsız (Unconstrained)' : 'Шектеусіз (Unconstrained)'}</li>
           <li>{lang === 'en' ? 'Quadratic' : lang === 'tr' ? 'Karesel (Quadratic)' : 'Квадраттық (Quadratic)'}</li>
         </ul>
+        <div style={{ marginTop: '1rem', padding: '1rem', background: 'rgba(0,0,0,0.5)', borderRadius: '8px', fontSize: '1.1rem', fontFamily: 'monospace', textAlign: 'center', color: '#e1bee7', lineHeight: '1.5' }}>
+          min y = 3q₁ + 2q₂ - 5q₁q₂<br/>
+          <span style={{ color: 'var(--text-secondary)' }}>(No constraints)</span><br/>
+          q₁, q₂ ∈ &#123;0, 1&#125;
+        </div>
       </div>
       
     </div>
