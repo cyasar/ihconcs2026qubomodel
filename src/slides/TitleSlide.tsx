@@ -40,9 +40,9 @@ export const Slide01_Title: React.FC<SlideProps> = ({ lang }) => {
 
       {/* Footer - University Logos */}
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '3rem', marginTop: 'auto', padding: '2rem 0 0 0' }}>
-        <img src="./gazi-logo.png" alt="Gazi University" style={{ height: '70px', objectFit: 'contain', filter: 'drop-shadow(0 0 10px rgba(255,255,255,0.1))' }} />
-        <img src="./zagreb-logo.png" alt="University of Zagreb" style={{ height: '70px', objectFit: 'contain', filter: 'drop-shadow(0 0 10px rgba(255,255,255,0.1))' }} />
-        <img src="./tvz-logo.png" alt="TVZ" style={{ height: '70px', objectFit: 'contain', filter: 'drop-shadow(0 0 10px rgba(255,255,255,0.1))' }} />
+        <img src={`${import.meta.env.BASE_URL}gazi-logo.png`} alt="Gazi University" style={{ height: '70px', objectFit: 'contain', filter: 'drop-shadow(0 0 10px rgba(255,255,255,0.1))' }} />
+        <img src={`${import.meta.env.BASE_URL}zagreb-logo.png`} alt="University of Zagreb" style={{ height: '70px', objectFit: 'contain', filter: 'drop-shadow(0 0 10px rgba(255,255,255,0.1))' }} />
+        <img src={`${import.meta.env.BASE_URL}tvz-logo.png`} alt="TVZ" style={{ height: '70px', objectFit: 'contain', filter: 'drop-shadow(0 0 10px rgba(255,255,255,0.1))' }} />
       </div>
 
     </div>

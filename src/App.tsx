@@ -131,7 +131,7 @@ function App() {
         backdropFilter: 'blur(10px)',
         boxShadow: '0 4px 20px rgba(0,0,0,0.3)'
       }}>
-        <img src="./ihconcs_logo.png" alt="IHCONCS Logo" style={{ height: '35px', objectFit: 'contain' }} />
+        <img src={`${import.meta.env.BASE_URL}ihconcs_logo.png`} alt="IHCONCS Logo" style={{ height: '35px', objectFit: 'contain' }} />
         <div style={{ textAlign: 'center' }}>
           <h4 style={{ margin: '0 0 0.2rem 0', color: 'var(--text-primary)', fontSize: '0.9rem' }}>
             {lang === 'en' ? 'The International Conference on Computer Sciences (IHCONCS 2026)' : 
@@ -144,7 +144,7 @@ function App() {
              '17-18 Қыркүйек 2026 • Загреб, Хорватия (Гибрид)'}
           </p>
         </div>
-        <img src="./ihconcs.png" alt="IHCONCS" style={{ height: '35px', objectFit: 'contain' }} />
+        <img src={`${import.meta.env.BASE_URL}ihconcs.png`} alt="IHCONCS" style={{ height: '35px', objectFit: 'contain' }} />
       </div>
 
       <CurrentSlideComponent lang={lang} safeMode={safeMode} />

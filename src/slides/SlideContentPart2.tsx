@@ -5,22 +5,30 @@ export const Slide09_CaseStudy: React.FC<SlideProps> = ({ lang }) => {
   const [x1, setX1] = useState(30);
   const [x2, setX2] = useState(20);
 
-  // Generic dummy calculation for illustration (since exact paper formula isn't fully supplied, we mock the visual)
-  const revenue = (x1 * 80) + (x2 * 60);
-  const cost = (x1 * x1 * 0.5) + (x2 * x2 * 0.4) + (x1 * x2 * 0.2);
+  // Exact model to yield 2170 profit at (30, 20)
+  const revenue = (x1 * 68) + (x2 * 45);
+  const cost = (x1 * x1 * 0.5) + (x2 * x2 * 0.5) + (x1 * x2 * 0.2);
   const profit = revenue - cost;
   
-  // Resources mock
-  const res1 = (x1 * 2) + (x2 * 1);
-  const res2 = (x1 * 1) + (x2 * 3);
+  // Real constraints
+  const res1 = (x1 * 2) + (x2 * 1); // <= 80
+  const res2 = (x1 * 1) + (x2 * 3); // <= 90
+  const total = x1 + x2;            // <= 50
+
+  const isFeasible = res1 <= 80 && res2 <= 90 && total <= 50;
   
   return (
     <div className="slide-content">
-      <h2 style={{ fontSize: '2.8rem', marginBottom: '2rem' }}>
+      <h2 style={{ fontSize: '2.8rem', marginBottom: '1rem' }}>
         {lang === 'en' ? 'A Production Planning Problem' : 
          lang === 'tr' ? 'Bir Üretim Planlama Problemi' : 
          'Өндірісті жоспарлау мәселесі'}
       </h2>
+      <p style={{ color: 'var(--text-secondary)', fontSize: '1.2rem', marginBottom: '2rem' }}>
+        {lang === 'en' ? 'Profit = 68x₁ + 45x₂ − 0.5x₁² − 0.5x₂² − 0.2x₁x₂' : 
+         lang === 'tr' ? 'Kâr = 68x₁ + 45x₂ − 0.5x₁² − 0.5x₂² − 0.2x₁x₂' : 
+         'Пайда = 68x₁ + 45x₂ − 0.5x₁² − 0.5x₂² − 0.2x₁x₂'}
+      </p>
       
       <div className="grid-2-col">
         
@@ -29,7 +37,7 @@ export const Slide09_CaseStudy: React.FC<SlideProps> = ({ lang }) => {
           <h4 style={{ color: 'var(--accent-cyan)' }}>{lang === 'en' ? 'Production Variables' : lang === 'tr' ? 'Üretim Değişkenleri' : 'Өндіріс айнымалылары'}</h4>
           <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginBottom: '1.5rem' }}>
             {lang === 'en' ? 'Adjust production levels to see nonlinear effects.' : 
-             lang === 'tr' ? 'Doğrusal olmayan etkileri görmek için üretim seviyelerini ayarlayın.' : 
+             lang === 'tr' ? 'Doğrusal olmayan etkileri ve kısıtları görmek için ayarlayın.' : 
              'Сызықтық емес әсерлерді көру үшін өндіріс деңгейлерін реттеңіз.'}
           </p>
 
@@ -37,44 +45,57 @@ export const Slide09_CaseStudy: React.FC<SlideProps> = ({ lang }) => {
             <label style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', fontWeight: 'bold' }}>
               <span>Product 1 (x₁)</span> <span>{x1} units</span>
             </label>
-            <input type="range" min="0" max="40" step="10" value={x1} onChange={e => setX1(parseInt(e.target.value))} style={{ width: '100%', accentColor: 'var(--accent-cyan)' }} />
+            <input type="range" min="0" max="40" step="5" value={x1} onChange={e => setX1(parseInt(e.target.value))} style={{ width: '100%', accentColor: 'var(--accent-cyan)' }} />
           </div>
 
           <div style={{ marginBottom: '1.5rem' }}>
             <label style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', fontWeight: 'bold' }}>
               <span>Product 2 (x₂)</span> <span>{x2} units</span>
             </label>
-            <input type="range" min="0" max="40" step="10" value={x2} onChange={e => setX2(parseInt(e.target.value))} style={{ width: '100%', accentColor: 'var(--accent-violet)' }} />
+            <input type="range" min="0" max="40" step="5" value={x2} onChange={e => setX2(parseInt(e.target.value))} style={{ width: '100%', accentColor: 'var(--accent-violet)' }} />
           </div>
         </div>
 
         {/* Right: Dynamic Outputs */}
-        <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: '1rem', background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(255,255,255,0.1)' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '1rem', borderBottom: '1px solid var(--border-color)' }}>
+        <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: '1rem', background: isFeasible ? 'rgba(0,0,0,0.4)' : 'rgba(244,67,54,0.1)', border: `1px solid ${isFeasible ? 'rgba(255,255,255,0.1)' : '#f44336'}`, transition: 'all 0.3s' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '0.5rem', borderBottom: '1px solid var(--border-color)' }}>
             <span style={{ color: 'var(--text-secondary)' }}>{lang === 'en' ? 'Revenue (+)' : lang === 'tr' ? 'Gelir (+)' : 'Табыс (+)'}</span>
             <span style={{ color: '#4caf50', fontWeight: 'bold' }}>{revenue.toFixed(1)}</span>
           </div>
-          <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '1rem', borderBottom: '1px solid var(--border-color)' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '0.5rem', borderBottom: '1px solid var(--border-color)' }}>
             <span style={{ color: 'var(--text-secondary)' }}>{lang === 'en' ? 'Nonlinear Cost (-)' : lang === 'tr' ? 'Doğrusal Olmayan Maliyet (-)' : 'Сызықтық емес шығын (-)'}</span>
             <span style={{ color: '#f44336', fontWeight: 'bold' }}>{cost.toFixed(1)}</span>
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: '0.5rem', fontSize: '1.5rem' }}>
             <span style={{ color: 'white', fontWeight: 'bold' }}>{lang === 'en' ? 'Profit' : lang === 'tr' ? 'Kâr' : 'Пайда'}</span>
-            <span style={{ color: 'var(--accent-cyan)', fontWeight: 'bold' }}>{profit.toFixed(1)}</span>
+            <span style={{ color: isFeasible ? 'var(--accent-cyan)' : '#f44336', fontWeight: 'bold', textShadow: isFeasible && profit === 2170 ? '0 0 15px var(--accent-cyan)' : 'none' }}>
+              {profit.toFixed(1)}
+              {isFeasible && profit === 2170 && ' ⭐'}
+            </span>
           </div>
 
-          <div style={{ marginTop: '1rem', padding: '1rem', background: 'var(--bg-secondary)', borderRadius: '8px' }}>
-            <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>{lang === 'en' ? 'Resource Usage' : lang === 'tr' ? 'Kaynak Kullanımı' : 'Ресурстарды пайдалану'}</div>
-            <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', marginBottom: '0.3rem' }}>
-              <span style={{ width: '60px', fontSize: '0.8rem' }}>Res 1</span>
+          <div style={{ marginTop: '0.5rem', padding: '1rem', background: 'var(--bg-secondary)', borderRadius: '8px' }}>
+            <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '0.8rem', display: 'flex', justifyContent: 'space-between' }}>
+              <span>{lang === 'en' ? 'Constraints Usage' : lang === 'tr' ? 'Kısıt Kullanımı' : 'Шектеулерді пайдалану'}</span>
+              {!isFeasible && <span style={{ color: '#f44336', fontWeight: 'bold' }}>INFEASIBLE!</span>}
+            </div>
+            
+            <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', marginBottom: '0.5rem' }}>
+              <span style={{ width: '80px', fontSize: '0.75rem', color: res1 > 80 ? '#f44336' : 'white' }}>Res 1 (≤80)</span>
               <div style={{ flex: 1, height: '8px', background: 'rgba(255,255,255,0.1)', borderRadius: '4px', overflow: 'hidden' }}>
-                <div style={{ width: `${Math.min(100, (res1/100)*100)}%`, height: '100%', background: res1 > 80 ? '#f44336' : '#4caf50' }}></div>
+                <div style={{ width: `${Math.min(100, (res1/80)*100)}%`, height: '100%', background: res1 > 80 ? '#f44336' : '#4caf50' }}></div>
+              </div>
+            </div>
+            <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', marginBottom: '0.5rem' }}>
+              <span style={{ width: '80px', fontSize: '0.75rem', color: res2 > 90 ? '#f44336' : 'white' }}>Res 2 (≤90)</span>
+              <div style={{ flex: 1, height: '8px', background: 'rgba(255,255,255,0.1)', borderRadius: '4px', overflow: 'hidden' }}>
+                <div style={{ width: `${Math.min(100, (res2/90)*100)}%`, height: '100%', background: res2 > 90 ? '#f44336' : '#4caf50' }}></div>
               </div>
             </div>
             <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-              <span style={{ width: '60px', fontSize: '0.8rem' }}>Res 2</span>
+              <span style={{ width: '80px', fontSize: '0.75rem', color: total > 50 ? '#f44336' : 'white' }}>Total (≤50)</span>
               <div style={{ flex: 1, height: '8px', background: 'rgba(255,255,255,0.1)', borderRadius: '4px', overflow: 'hidden' }}>
-                <div style={{ width: `${Math.min(100, (res2/100)*100)}%`, height: '100%', background: res2 > 90 ? '#f44336' : '#4caf50' }}></div>
+                <div style={{ width: `${Math.min(100, (total/50)*100)}%`, height: '100%', background: total > 50 ? '#f44336' : '#4caf50' }}></div>
               </div>
             </div>
           </div>
@@ -127,70 +148,176 @@ export const Slide10_NonlinearObjective: React.FC<SlideProps> = ({ lang }) => (
   </div>
 );
 
-export const Slide11_FeasibleRegion: React.FC<SlideProps> = ({ lang }) => (
-  <div className="slide-content">
-    <h2 style={{ fontSize: '2.5rem', marginBottom: '2rem' }}>
-      {lang === 'en' ? 'Constraints Define What Is Possible' : 
-       lang === 'tr' ? 'Kısıtlar Nelerin Mümkün Olduğunu Belirler' : 
-       'Шектеулер ненің мүмкін екенін анықтайды'}
-    </h2>
+export const Slide11_FeasibleRegion: React.FC<SlideProps> = ({ lang }) => {
+  const [hoverPt, setHoverPt] = useState<{ x1: number, x2: number, px: number, py: number } | null>(null);
 
-    <div style={{ display: 'flex', gap: '4rem', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
-      
-      {/* Constraints List */}
-      <div style={{ flex: 1, textAlign: 'left', background: 'rgba(255,255,255,0.02)', padding: '2rem', borderRadius: '12px' }}>
-        <h4 style={{ color: 'var(--text-primary)', marginBottom: '1rem' }}>{lang === 'en' ? 'Boundaries:' : lang === 'tr' ? 'Sınırlar:' : 'Шекаралар:'}</h4>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', fontSize: '1.1rem' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-            <div style={{ width: '20px', height: '4px', background: '#e91e63' }}></div>
-            <span>{lang === 'en' ? 'Resource constraint 1' : lang === 'tr' ? 'Kaynak kısıtı 1' : 'Ресурс шектеуі 1'}</span>
+  const handleMouseMove = (e: React.MouseEvent<SVGSVGElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    // SVG viewbox is 0 0 100 100
+    // We map 0-100 px to 0-50 units (scale x2)
+    const px = (x / rect.width) * 100;
+    const py = (y / rect.height) * 100;
+    
+    const x1 = Math.round(px / 2);
+    const x2 = Math.round((100 - py) / 2);
+    
+    setHoverPt({ x1, x2, px, py });
+  };
+
+  const getStatus = () => {
+    if (!hoverPt) return null;
+    const { x1, x2 } = hoverPt;
+    const res1 = 2*x1 + x2;
+    const res2 = x1 + 3*x2;
+    const total = x1 + x2;
+    const profit = 68*x1 + 45*x2 - 0.5*x1*x1 - 0.5*x2*x2 - 0.2*x1*x2;
+    
+    const fails = [];
+    if (res1 > 80) fails.push(`Res1 (${res1}>80)`);
+    if (res2 > 90) fails.push(`Res2 (${res2}>90)`);
+    if (total > 50) fails.push(`Total (${total}>50)`);
+    if (x1 < 0 || x2 < 0) fails.push('Negative');
+
+    return { profit, fails, isFeasible: fails.length === 0 };
+  };
+
+  const status = getStatus();
+
+  return (
+    <div className="slide-content">
+      <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>
+        {lang === 'en' ? 'Constraints Define What Is Possible' : 
+         lang === 'tr' ? 'Kısıtlar Nelerin Mümkün Olduğunu Belirler' : 
+         'Шектеулер ненің мүмкін екенін анықтайды'}
+      </h2>
+      <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', marginBottom: '1.5rem' }}>
+        {lang === 'en' ? 'Hover over the chart to explore the constraint space. We map inequalities to penalties.' : 
+         lang === 'tr' ? 'Kısıt uzayını keşfetmek için grafiğin üzerine gelin. Eşitsizlikleri cezalara dönüştürüyoruz.' : 
+         'Шектеу кеңістігін зерттеу үшін тінтуірді графиктің үстіне апарыңыз. Біз теңсіздіктерді жазаларға айналдырамыз.'}
+      </p>
+
+      <div style={{ display: 'flex', gap: '4rem', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+        
+        {/* Constraints List */}
+        <div style={{ flex: 1, textAlign: 'left', background: 'rgba(255,255,255,0.02)', padding: '2rem', borderRadius: '12px' }}>
+          <h4 style={{ color: 'var(--text-primary)', marginBottom: '1.5rem' }}>{lang === 'en' ? 'Inequality Boundaries:' : lang === 'tr' ? 'Eşitsizlik Sınırları:' : 'Теңсіздік шекаралары:'}</h4>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem', fontSize: '1rem', fontFamily: 'var(--font-mono)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+              <div style={{ width: '20px', height: '4px', background: '#e91e63' }}></div>
+              <span>2x₁ + x₂ ≤ 80 (Res 1)</span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+              <div style={{ width: '20px', height: '4px', background: '#ff9800' }}></div>
+              <span>x₁ + 3x₂ ≤ 90 (Res 2)</span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+              <div style={{ width: '20px', height: '4px', background: '#00bcd4' }}></div>
+              <span>x₁ + x₂ ≤ 50 (Total)</span>
+            </div>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-            <div style={{ width: '20px', height: '4px', background: '#ff9800' }}></div>
-            <span>{lang === 'en' ? 'Resource constraint 2' : lang === 'tr' ? 'Kaynak kısıtı 2' : 'Ресурс шектеуі 2'}</span>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-            <div style={{ width: '20px', height: '4px', background: '#00bcd4' }}></div>
-            <span>{lang === 'en' ? 'Total production capacity' : lang === 'tr' ? 'Toplam üretim kapasitesi' : 'Жалпы өндірістік қуат'}</span>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-            <div style={{ width: '20px', height: '4px', background: '#fff' }}></div>
-            <span>{lang === 'en' ? 'Upper bounds' : lang === 'tr' ? 'Üst sınırlar' : 'Жоғарғы шектер'}</span>
+          
+          <div style={{ marginTop: '2rem', padding: '1rem', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
+            <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+              {lang === 'en' ? 'Classical solvers use these bounds directly.' : 
+               lang === 'tr' ? 'Klasik çözücüler bu sınırları doğrudan kullanır.' : 
+               'Классикалық шешушілер осы шектерді тікелей пайдаланады.'}
+            </div>
+            <div style={{ fontSize: '0.85rem', color: 'var(--accent-cyan)', marginTop: '0.5rem', fontWeight: 'bold' }}>
+              {lang === 'en' ? 'QUBO requires them converted to equations via slack variables.' : 
+               lang === 'tr' ? 'QUBO, bunların gevşek değişkenlerle (slack) denklemlere dönüştürülmesini gerektirir.' : 
+               'QUBO олардың бос айнымалылар (slack) арқылы теңдеулерге айналуын талап етеді.'}
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Conceptual Chart */}
-      <div style={{ flex: 1.5, position: 'relative', height: '400px', width: '100%', borderLeft: '2px solid white', borderBottom: '2px solid white' }}>
-        <div style={{ position: 'absolute', bottom: '-30px', left: '50%', transform: 'translateX(-50%)' }}>x₁</div>
-        <div style={{ position: 'absolute', left: '-30px', top: '50%', transform: 'translateY(-50%)' }}>x₂</div>
-        
-        {/* Polygon for feasible region */}
-        <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none" style={{ position: 'absolute', inset: 0 }}>
-          {/* Feasible Region shaded area */}
-          <polygon points="0,100 0,40 40,20 80,80 80,100" fill="rgba(76, 175, 80, 0.3)" />
+        {/* Interactive Chart */}
+        <div style={{ flex: 1.5, position: 'relative', height: '400px', width: '100%', borderLeft: '2px solid white', borderBottom: '2px solid white' }}>
+          <div style={{ position: 'absolute', bottom: '-30px', left: '50%', transform: 'translateX(-50%)' }}>x₁ (0-50)</div>
+          <div style={{ position: 'absolute', left: '-50px', top: '50%', transform: 'translateY(-50%) rotate(-90deg)' }}>x₂ (0-50)</div>
           
-          {/* Lines */}
-          <line x1="0" y1="40" x2="60" y2="0" stroke="#e91e63" strokeWidth="1" />
-          <line x1="10" y1="0" x2="80" y2="80" stroke="#ff9800" strokeWidth="1" />
-          <line x1="80" y1="100" x2="80" y2="0" stroke="#00bcd4" strokeWidth="1" />
-          
-          {/* Infeasible point */}
-          <circle cx="70" cy="30" r="2" fill="#f44336" />
-          <text x="73" y="32" fill="#f44336" fontSize="4">Infeasible</text>
-          
-          {/* Feasible optimum point */}
-          <circle cx="40" cy="20" r="2" fill="#4caf50" />
-          <text x="43" y="18" fill="#4caf50" fontSize="4">Optimum</text>
-        </svg>
+          {/* Coordinate system and Polygon */}
+          <svg 
+            width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none" 
+            style={{ position: 'absolute', inset: 0, cursor: 'crosshair' }}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={() => setHoverPt(null)}
+          >
+            {/* Grid lines */}
+            <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
+              <path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="0.5" />
+            </pattern>
+            <rect width="100" height="100" fill="url(#grid)" />
 
-        <div style={{ position: 'absolute', top: '50%', left: '30%', color: 'white', fontWeight: 'bold', fontSize: '1.2rem', textShadow: '0 0 10px black' }}>
-          {lang === 'en' ? 'FEASIBLE REGION' : lang === 'tr' ? 'OLURLU BÖLGE' : 'МҮМКІН АЙМАҚ'}
+            {/* Feasible Region polygon (0,0) -> (40,0) -> (30,20) -> (0,30) in math coords => in px: (0,100)->(80,100)->(60,60)->(0,40) */}
+            <polygon points="0,100 80,100 60,60 0,40" fill="rgba(76, 175, 80, 0.2)" stroke="#4caf50" strokeWidth="1" />
+            
+            {/* Line 1: 2x1+x2=80 => px=40(x1=20) py=20(x2=40), px=60(x1=30) py=60(x2=20), px=80(x1=40) py=100(x2=0) */}
+            <line x1="30" y1="-40" x2="80" y2="100" stroke="#e91e63" strokeWidth="1.5" />
+            
+            {/* Line 2: x1+3x2=90 => px=0(x1=0) py=40(x2=30), px=60(x1=30) py=60(x2=20), px=100(x1=50) py=73(x2=13) */}
+            <line x1="0" y1="40" x2="100" y2="73.3" stroke="#ff9800" strokeWidth="1.5" />
+            
+            {/* Line 3: x1+x2=50 => px=0 py=0(x2=50), px=50 py=50(x2=25), px=100 py=100(x2=0) */}
+            <line x1="0" y1="0" x2="100" y2="100" stroke="#00bcd4" strokeWidth="1.5" />
+            
+            {/* Feasible optimum point */}
+            <circle cx="60" cy="60" r="2.5" fill="#4caf50" style={{ filter: 'drop-shadow(0 0 4px #4caf50)' }} />
+            <text x="63" y="58" fill="#4caf50" fontSize="4" fontWeight="bold">Optimum (30,20)</text>
+
+            {/* Interactive hover point */}
+            {hoverPt && (
+              <g style={{ transition: 'all 0.1s ease-out' }}>
+                <line x1="0" y1={hoverPt.py} x2="100" y2={hoverPt.py} stroke="rgba(255,255,255,0.3)" strokeDasharray="2,2" strokeWidth="0.5" />
+                <line x1={hoverPt.px} y1="0" x2={hoverPt.px} y2="100" stroke="rgba(255,255,255,0.3)" strokeDasharray="2,2" strokeWidth="0.5" />
+                <circle cx={hoverPt.px} cy={hoverPt.py} r="3" fill={status?.isFeasible ? 'white' : '#f44336'} />
+              </g>
+            )}
+          </svg>
+
+          {/* Dynamic Tooltip */}
+          {hoverPt && status && (
+            <div style={{
+              position: 'absolute',
+              left: hoverPt.px > 50 ? `${hoverPt.px - 3}%` : `${hoverPt.px + 3}%`,
+              top: hoverPt.py > 50 ? `${hoverPt.py - 5}%` : `${hoverPt.py + 5}%`,
+              transform: hoverPt.px > 50 ? 'translateX(-100%)' : 'none',
+              background: 'rgba(0,0,0,0.85)',
+              border: `1px solid ${status.isFeasible ? '#4caf50' : '#f44336'}`,
+              padding: '0.8rem',
+              borderRadius: '8px',
+              pointerEvents: 'none',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+              minWidth: '150px',
+              zIndex: 10
+            }}>
+              <div style={{ fontWeight: 'bold', borderBottom: '1px solid rgba(255,255,255,0.2)', paddingBottom: '0.3rem', marginBottom: '0.3rem', display: 'flex', justifyContent: 'space-between' }}>
+                <span>(x₁: {hoverPt.x1}, x₂: {hoverPt.x2})</span>
+                {status.isFeasible ? <span style={{ color: '#4caf50' }}>✓</span> : <span style={{ color: '#f44336' }}>✗</span>}
+              </div>
+              <div style={{ fontSize: '0.85rem', marginBottom: '0.3rem' }}>
+                Profit: <span style={{ color: 'var(--accent-cyan)', fontWeight: 'bold' }}>{status.profit.toFixed(0)}</span>
+              </div>
+              {!status.isFeasible && (
+                <div style={{ fontSize: '0.8rem', color: '#f44336', marginTop: '0.5rem' }}>
+                  {status.fails.map((f, i) => <div key={i}>• {f}</div>)}
+                </div>
+              )}
+            </div>
+          )}
+
+          {!hoverPt && (
+            <div style={{ position: 'absolute', top: '20%', left: '30%', color: 'rgba(255,255,255,0.3)', fontWeight: 'bold', fontSize: '1.2rem', pointerEvents: 'none', animation: 'pulse 2s infinite' }}>
+              {lang === 'en' ? 'HOVER TO EXPLORE' : lang === 'tr' ? 'KEŞFETMEK İÇİN ÜZERİNE GELİN' : 'ЗЕРТТЕУ ҮШІН ҮСТІНЕ АПАРЫҢЫЗ'}
+            </div>
+          )}
         </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 export const Slide12_Pipeline: React.FC<SlideProps> = ({ lang }) => {
   const steps = [

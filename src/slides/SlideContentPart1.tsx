@@ -307,94 +307,188 @@ export const Slide06_ResearchAim: React.FC<SlideProps> = ({ lang }) => (
 );
 
 export const Slide07_ResearchGap: React.FC<SlideProps> = ({ lang }) => {
-  const [currentStep, setCurrentStep] = React.useState(0);
+  const [activeArea, setActiveArea] = React.useState<number | null>(null);
+  const [viewMode, setViewMode] = React.useState<'typical' | 'ours'>('typical');
 
-  const pipeline = [
-    { en: 'Original Problem', tr: 'Orijinal Problem', kk: 'Бастапқы мәселе' },
-    { en: 'Scaling', tr: 'Ölçeklendirme', kk: 'Масштабтау' },
-    { en: 'Discretisation', tr: 'Ayrıklaştırma', kk: 'Дискретизация' },
-    { en: 'Binary encoding', tr: 'İkili Kodlama', kk: 'Екілік кодтау' },
-    { en: 'Slack variables', tr: 'Gevşek Değişkenler', kk: 'Бос айнымалылар' },
-    { en: 'Penalty embedding', tr: 'Ceza Ekleme', kk: 'Жазаны енгізу' },
-    { en: 'QUBO matrix', tr: 'QUBO Matrisi', kk: 'QUBO матрицасы' },
-    { en: 'Solving', tr: 'Çözüm', kk: 'Шешу' },
-    { en: 'Decoding', tr: 'Kod Çözme', kk: 'Декодтау' },
-    { en: 'Comparison', tr: 'Karşılaştırma', kk: 'Салыстыру' }
+  const literatureAreas = [
+    {
+      icon: '📊', color: '#ff9800',
+      title: { en: 'QUBO Formulation', tr: 'QUBO Formülasyonu', kk: 'QUBO формулировкасы' },
+      exists: { en: 'Matrix construction techniques studied', tr: 'Matris oluşturma teknikleri incelenmiş', kk: 'Матрица құру әдістері зерттелген' },
+      missing: { en: 'No step-by-step workflow from a real nonlinear problem', tr: 'Gerçek bir doğrusal olmayan problemden adım adım iş akışı yok', kk: 'Нақты сызықтық емес мәселеден қадамдық процесс жоқ' },
+    },
+    {
+      icon: '⚛️', color: 'var(--accent-violet)',
+      title: { en: 'QAOA / Quantum Annealing', tr: 'QAOA / Kuantum Tavlama', kk: 'QAOA / Кванттық күйдіру' },
+      exists: { en: 'Algorithms tested on benchmark QUBOs', tr: 'Algoritmalar referans QUBO problemlerinde test edilmiş', kk: 'Алгоритмдер эталондық QUBO мәселелерінде сыналған' },
+      missing: { en: 'Rarely show HOW the QUBO was derived', tr: 'QUBO\'nun NASIL türetildiği nadiren gösteriliyor', kk: 'QUBO ҚАЛАЙ алынғаны сирек көрсетіледі' },
+    },
+    {
+      icon: '🔧', color: 'var(--accent-cyan)',
+      title: { en: 'Constraint Encoding', tr: 'Kısıt Kodlama', kk: 'Шектеулерді кодтау' },
+      exists: { en: 'Penalty methods & slack variables known', tr: 'Ceza yöntemleri ve gevşek değişkenler biliniyor', kk: 'Жаза әдістері мен бос айнымалылар белгілі' },
+      missing: { en: 'Intermediate math steps often skipped', tr: 'Ara matematiksel adımlar genellikle atlanıyor', kk: 'Аралық математикалық қадамдар жиі өткізіледі' },
+    },
+    {
+      icon: '✅', color: '#4caf50',
+      title: { en: 'Validation', tr: 'Doğrulama', kk: 'Тексеру' },
+      exists: { en: 'QUBO solutions reported', tr: 'QUBO çözümleri raporlanıyor', kk: 'QUBO шешімдері хабарланады' },
+      missing: { en: 'Rarely compared back to classical solver on the ORIGINAL problem', tr: 'ORİJİNAL problemdeki klasik çözücü ile nadiren karşılaştırılıyor', kk: 'БАСТАПҚЫ мәселедегі классикалық шешушімен сирек салыстырылады' },
+    },
   ];
 
+  const t = (obj: { en: string; tr: string; kk: string }) =>
+    lang === 'en' ? obj.en : lang === 'tr' ? obj.tr : obj.kk;
+
   return (
-    <div className="slide-content" style={{ overflow: 'visible', display: 'flex', flexDirection: 'column' }}>
-      <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>
-        {lang === 'en' ? 'What Is Missing?' : 
-         lang === 'tr' ? 'Eksik Olan Nedir?' : 
-         'Не жетіспейді?'}
+    <div className="slide-content" style={{ overflow: 'visible', display: 'flex', flexDirection: 'column', padding: '7rem 3rem 4rem 3rem' }}>
+      <h2 style={{ fontSize: '2.4rem', marginBottom: '0.5rem' }}>
+        {lang === 'en' ? 'What Is Missing in the Literature?' : 
+         lang === 'tr' ? 'Literatürde Eksik Olan Nedir?' : 
+         'Әдебиетте не жетіспейді?'}
       </h2>
-      <p style={{ color: 'var(--text-secondary)', fontSize: '1.2rem', marginBottom: '2rem' }}>
-        {lang === 'en' 
-          ? 'While individual studies exist on QUBO, constraint encoding, and QAOA, this study targets the integrated end-to-end workflow.' 
-          : lang === 'tr' 
-          ? 'QUBO, kısıt kodlama ve QAOA üzerine bireysel çalışmalar mevcut olsa da, bu çalışma entegre bir uçtan uca (end-to-end) iş akışını hedefler.' 
-          : 'QUBO, шектеулерді кодтау және QAOA бойынша жекелеген зерттеулер болғанымен, бұл зерттеу интеграцияланған толық жұмыс процесін мақсат етеді.'}
+      <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', marginBottom: '1.5rem' }}>
+        {lang === 'en' ? 'Individual pieces exist. But the integrated end-to-end workflow is missing.' : 
+         lang === 'tr' ? 'Bireysel parçalar mevcut. Ancak entegre uçtan uca iş akışı eksik.' : 
+         'Жеке бөліктер бар. Бірақ интеграцияланған толық жұмыс процесі жетіспейді.'}
       </p>
 
-      {/* Interactive Controls */}
-      <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', marginBottom: '3rem' }}>
-        <button 
-          onClick={() => setCurrentStep(Math.max(0, currentStep - 1))}
-          disabled={currentStep === 0}
-          style={{ padding: '0.8rem 1.5rem', fontSize: '1rem', background: 'rgba(255,255,255,0.1)', border: 'none', borderRadius: '8px', color: 'white', cursor: currentStep === 0 ? 'not-allowed' : 'pointer', opacity: currentStep === 0 ? 0.5 : 1 }}
-        >
-          {lang === 'en' ? '← Previous' : lang === 'tr' ? '← Önceki' : '← Алдыңғы'}
-        </button>
-        <button 
-          onClick={() => setCurrentStep(Math.min(pipeline.length, currentStep + 1))}
-          disabled={currentStep === pipeline.length}
-          style={{ padding: '0.8rem 1.5rem', fontSize: '1rem', background: 'var(--accent-cyan)', border: 'none', borderRadius: '8px', color: 'black', fontWeight: 'bold', cursor: currentStep === pipeline.length ? 'not-allowed' : 'pointer', opacity: currentStep === pipeline.length ? 0.5 : 1 }}
-        >
-          {lang === 'en' ? 'Next Step →' : lang === 'tr' ? 'Sonraki Adım →' : 'Келесі қадам →'}
-        </button>
-        <button 
-          onClick={() => setCurrentStep(pipeline.length)}
-          style={{ padding: '0.8rem 1.5rem', fontSize: '1rem', background: 'transparent', border: '1px solid var(--accent-cyan)', borderRadius: '8px', color: 'var(--accent-cyan)', cursor: 'pointer' }}
-        >
-          {lang === 'en' ? 'Show All' : lang === 'tr' ? 'Tümünü Göster' : 'Барлығын көрсету'}
-        </button>
-      </div>
-
-      {/* Horizontal Pipeline */}
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', justifyContent: 'center', alignItems: 'center', maxWidth: '1200px', margin: '0 auto' }}>
-        {pipeline.map((step, index) => {
-          const isVisible = index < currentStep;
-          const isActive = index === currentStep - 1;
-          
-          return (
-            <React.Fragment key={index}>
-              <div style={{ 
-                padding: '1rem 1.5rem', 
-                background: isActive ? 'rgba(0,188,212,0.2)' : isVisible ? (index === 0 ? '#37474f' : index === 6 ? 'rgba(142,36,170,0.3)' : index === pipeline.length-1 ? 'rgba(0,188,212,0.3)' : 'rgba(255,255,255,0.05)') : 'rgba(255,255,255,0.02)', 
-                border: `1px solid ${isActive ? 'var(--accent-cyan)' : isVisible ? (index === 0 ? '#546e7a' : index === 6 ? 'var(--accent-violet)' : index === pipeline.length-1 ? 'var(--accent-cyan)' : 'var(--border-color)') : 'rgba(255,255,255,0.1)'}`,
-                borderRadius: '8px', 
-                fontSize: '1rem',
-                fontWeight: 'bold',
-                whiteSpace: 'nowrap',
-                color: isVisible ? 'white' : 'rgba(255,255,255,0.3)',
-                boxShadow: isActive ? '0 0 15px rgba(0,188,212,0.5)' : (isVisible ? '0 4px 10px rgba(0,0,0,0.2)' : 'none'),
-                transform: isActive ? 'scale(1.05)' : 'scale(1)',
-                transition: 'all 0.3s ease',
-                opacity: isVisible ? 1 : 0.4
-              }}>
-                {lang === 'en' ? step.en : lang === 'tr' ? step.tr : step.kk}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', flex: 1 }}>
+        
+        {/* LEFT: Literature Areas */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+          <h4 style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '0.3rem' }}>
+            {lang === 'en' ? '📚 Existing Literature' : lang === 'tr' ? '📚 Mevcut Literatür' : '📚 Бар әдебиет'}
+          </h4>
+          {literatureAreas.map((area, idx) => (
+            <div 
+              key={idx}
+              onClick={() => setActiveArea(activeArea === idx ? null : idx)}
+              style={{ 
+                padding: '0.8rem 1rem', 
+                background: activeArea === idx ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.02)',
+                border: `1px solid ${activeArea === idx ? area.color : 'var(--border-color)'}`,
+                borderRadius: '10px', 
+                cursor: 'pointer',
+                transition: 'all 0.3s',
+                transform: activeArea === idx ? 'scale(1.02)' : 'scale(1)',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', marginBottom: activeArea === idx ? '0.8rem' : 0 }}>
+                <span style={{ fontSize: '1.3rem' }}>{area.icon}</span>
+                <span style={{ fontWeight: 'bold', fontSize: '1rem', color: 'var(--text-primary)' }}>{t(area.title)}</span>
               </div>
-              {index < pipeline.length - 1 && (
-                <div style={{ 
-                  color: isVisible && index < currentStep - 1 ? 'var(--text-secondary)' : 'rgba(255,255,255,0.1)', 
-                  fontSize: '1.5rem',
-                  transition: 'color 0.3s ease'
-                }}>→</div>
+              {activeArea === idx && (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginLeft: '2.2rem', animation: 'fadeIn 0.3s ease-out' }}>
+                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem' }}>
+                    <span style={{ color: '#4caf50', fontSize: '1.1rem', flexShrink: 0 }}>✓</span>
+                    <span style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>{t(area.exists)}</span>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem' }}>
+                    <span style={{ color: '#f44336', fontSize: '1.1rem', flexShrink: 0 }}>✗</span>
+                    <span style={{ color: '#f44336', fontSize: '0.9rem', fontWeight: 'bold' }}>{t(area.missing)}</span>
+                  </div>
+                </div>
               )}
-            </React.Fragment>
-          );
-        })}
+            </div>
+          ))}
+          <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', fontStyle: 'italic', marginTop: '0.3rem', textAlign: 'center' }}>
+            {lang === 'en' ? '↑ Click each area to see the gap' : lang === 'tr' ? '↑ Boşluğu görmek için tıklayın' : '↑ Олқылықты көру үшін басыңыз'}
+          </div>
+        </div>
+
+        {/* RIGHT: Our Concrete Pipeline */}
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.8rem' }}>
+            <h4 style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', letterSpacing: '2px', textTransform: 'uppercase', margin: 0 }}>
+              {lang === 'en' ? '🔬 This Study\'s Approach' : lang === 'tr' ? '🔬 Bu Çalışmanın Yaklaşımı' : '🔬 Осы зерттеудің тәсілі'}
+            </h4>
+            <div style={{ display: 'flex', gap: '0.3rem', background: 'rgba(0,0,0,0.3)', padding: '0.2rem', borderRadius: '8px' }}>
+              <button 
+                onClick={() => setViewMode('typical')}
+                style={{ padding: '0.3rem 0.8rem', borderRadius: '6px', fontSize: '0.75rem', fontWeight: viewMode === 'typical' ? 'bold' : 'normal', background: viewMode === 'typical' ? '#f44336' : 'transparent', color: viewMode === 'typical' ? 'white' : 'var(--text-secondary)', border: 'none' }}
+              >
+                {lang === 'en' ? 'Typical Paper' : lang === 'tr' ? 'Tipik Makale' : 'Типтік мақала'}
+              </button>
+              <button 
+                onClick={() => setViewMode('ours')}
+                style={{ padding: '0.3rem 0.8rem', borderRadius: '6px', fontSize: '0.75rem', fontWeight: viewMode === 'ours' ? 'bold' : 'normal', background: viewMode === 'ours' ? 'var(--accent-cyan)' : 'transparent', color: viewMode === 'ours' ? 'black' : 'var(--text-secondary)', border: 'none' }}
+              >
+                {lang === 'en' ? 'Our Approach' : lang === 'tr' ? 'Bizim Yaklaşım' : 'Біздің тәсіл'}
+              </button>
+            </div>
+          </div>
+
+          {viewMode === 'typical' ? (
+            /* Typical Paper: fragmented view with hidden steps */
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', flex: 1 }}>
+              <div style={{ padding: '1rem', background: '#37474f', borderRadius: '8px', border: '1px solid #546e7a', textAlign: 'center' }}>
+                <div style={{ fontWeight: 'bold', fontSize: '1rem' }}>{lang === 'en' ? 'Original Problem' : lang === 'tr' ? 'Orijinal Problem' : 'Бастапқы мәселе'}</div>
+                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', color: 'var(--text-secondary)', marginTop: '0.3rem' }}>max f(x), s.t. g(x) ≤ 0</div>
+              </div>
+              <div style={{ textAlign: 'center', fontSize: '1.2rem', color: 'var(--text-secondary)' }}>↓</div>
+              
+              {/* Hidden black box */}
+              <div style={{ padding: '1.5rem', background: 'rgba(244,67,54,0.1)', borderRadius: '8px', border: '2px dashed #f44336', textAlign: 'center', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '0.5rem' }}>
+                <div style={{ fontSize: '3rem' }}>🔒</div>
+                <div style={{ color: '#f44336', fontWeight: 'bold', fontSize: '1.2rem' }}>
+                  {lang === 'en' ? '"Then we construct the QUBO..."' : lang === 'tr' ? '"Sonra QUBO\'yu oluştururuz..."' : '"Содан кейін QUBO құрамыз..."'}
+                </div>
+                <div style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', fontStyle: 'italic' }}>
+                  {lang === 'en' ? 'Scaling? Encoding? Slack? Penalty? — Often skipped!' : 
+                   lang === 'tr' ? 'Ölçekleme? Kodlama? Gevşek değişken? Ceza? — Genellikle atlanıyor!' : 
+                   'Масштабтау? Кодтау? Бос айнымалы? Жаза? — Жиі өткізіледі!'}
+                </div>
+              </div>
+
+              <div style={{ textAlign: 'center', fontSize: '1.2rem', color: 'var(--text-secondary)' }}>↓</div>
+              <div style={{ padding: '1rem', background: 'rgba(142,36,170,0.15)', borderRadius: '8px', border: '1px solid var(--accent-violet)', textAlign: 'center' }}>
+                <div style={{ fontWeight: 'bold', color: '#e1bee7' }}>QUBO Result</div>
+                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+                  {lang === 'en' ? '"We solved it" — but how?' : lang === 'tr' ? '"Çözdük" — ama nasıl?' : '"Шештік" — бірақ қалай?'}
+                </div>
+              </div>
+            </div>
+          ) : (
+            /* Our Approach: full transparent pipeline with real numbers */
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem', flex: 1, overflowY: 'auto' }}>
+              {[
+                { step: { en: '1. Problem', tr: '1. Problem', kk: '1. Мәселе' }, 
+                  detail: 'max 80x₁+60x₂−x₁²−0.5x₂²', color: '#37474f', border: '#546e7a' },
+                { step: { en: '2. Scale', tr: '2. Ölçekle', kk: '2. Масштабта' }, 
+                  detail: 'x₁=10u₁ → u₁∈{0,...,7}', color: 'rgba(255,152,0,0.1)', border: '#ff9800' },
+                { step: { en: '3. Binary', tr: '3. İkili Kodla', kk: '3. Екілік' }, 
+                  detail: 'u₁=q₀+2q₁+4q₂ → 3→011', color: 'rgba(0,188,212,0.1)', border: 'var(--accent-cyan)' },
+                { step: { en: '4. Slack', tr: '4. Gevşek Değ.', kk: '4. Бос айн.' }, 
+                  detail: '2x₁+x₂+s=80, s→bits', color: 'rgba(233,30,99,0.1)', border: '#e91e63' },
+                { step: { en: '5. Penalty', tr: '5. Ceza', kk: '5. Жаза' }, 
+                  detail: 'QUBO=f(q)−1000·(violation)²', color: 'rgba(244,67,54,0.1)', border: '#f44336' },
+                { step: { en: '6. Build Q', tr: '6. Q Matrisi', kk: '6. Q Құру' }, 
+                  detail: 'min qᵀQq (13×13 matrix)', color: 'rgba(142,36,170,0.1)', border: 'var(--accent-violet)' },
+                { step: { en: '7. Solve→Decode', tr: '7. Çöz→Çöz', kk: '7. Шеш→Декод' }, 
+                  detail: '011 010→x₁=30,x₂=20', color: 'rgba(0,188,212,0.1)', border: 'var(--accent-cyan)' },
+                { step: { en: '8. Validate ✓', tr: '8. Doğrula ✓', kk: '8. Тексер ✓' }, 
+                  detail: 'Profit=2170=SLSQP ✓', color: 'rgba(76,175,80,0.15)', border: '#4caf50' },
+              ].map((item, idx) => (
+                <React.Fragment key={idx}>
+                  <div style={{ 
+                    padding: '0.5rem 0.8rem', background: item.color, borderRadius: '6px', 
+                    borderLeft: `3px solid ${item.border}`, display: 'flex', justifyContent: 'space-between', 
+                    alignItems: 'center', transition: 'all 0.3s' 
+                  }}>
+                    <span style={{ fontWeight: 'bold', fontSize: '0.85rem', color: 'var(--text-primary)' }}>
+                      {t(item.step)}
+                    </span>
+                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
+                      {item.detail}
+                    </span>
+                  </div>
+                  {idx < 7 && <div style={{ textAlign: 'center', fontSize: '0.8rem', color: 'var(--text-secondary)', lineHeight: '1' }}>↓</div>}
+                </React.Fragment>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
