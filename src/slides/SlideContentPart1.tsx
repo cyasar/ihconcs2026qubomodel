@@ -307,6 +307,8 @@ export const Slide06_ResearchAim: React.FC<SlideProps> = ({ lang }) => (
 );
 
 export const Slide07_ResearchGap: React.FC<SlideProps> = ({ lang }) => {
+  const [currentStep, setCurrentStep] = React.useState(0);
+
   const pipeline = [
     { en: 'Original Problem', tr: 'Orijinal Problem', kk: 'Бастапқы мәселе' },
     { en: 'Scaling', tr: 'Ölçeklendirme', kk: 'Масштабтау' },
@@ -321,13 +323,13 @@ export const Slide07_ResearchGap: React.FC<SlideProps> = ({ lang }) => {
   ];
 
   return (
-    <div className="slide-content" style={{ overflow: 'visible' }}>
+    <div className="slide-content" style={{ overflow: 'visible', display: 'flex', flexDirection: 'column' }}>
       <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>
         {lang === 'en' ? 'What Is Missing?' : 
          lang === 'tr' ? 'Eksik Olan Nedir?' : 
          'Не жетіспейді?'}
       </h2>
-      <p style={{ color: 'var(--text-secondary)', fontSize: '1.2rem', marginBottom: '3rem' }}>
+      <p style={{ color: 'var(--text-secondary)', fontSize: '1.2rem', marginBottom: '2rem' }}>
         {lang === 'en' 
           ? 'While individual studies exist on QUBO, constraint encoding, and QAOA, this study targets the integrated end-to-end workflow.' 
           : lang === 'tr' 
@@ -335,27 +337,64 @@ export const Slide07_ResearchGap: React.FC<SlideProps> = ({ lang }) => {
           : 'QUBO, шектеулерді кодтау және QAOA бойынша жекелеген зерттеулер болғанымен, бұл зерттеу интеграцияланған толық жұмыс процесін мақсат етеді.'}
       </p>
 
+      {/* Interactive Controls */}
+      <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', marginBottom: '3rem' }}>
+        <button 
+          onClick={() => setCurrentStep(Math.max(0, currentStep - 1))}
+          disabled={currentStep === 0}
+          style={{ padding: '0.8rem 1.5rem', fontSize: '1rem', background: 'rgba(255,255,255,0.1)', border: 'none', borderRadius: '8px', color: 'white', cursor: currentStep === 0 ? 'not-allowed' : 'pointer', opacity: currentStep === 0 ? 0.5 : 1 }}
+        >
+          {lang === 'en' ? '← Previous' : lang === 'tr' ? '← Önceki' : '← Алдыңғы'}
+        </button>
+        <button 
+          onClick={() => setCurrentStep(Math.min(pipeline.length, currentStep + 1))}
+          disabled={currentStep === pipeline.length}
+          style={{ padding: '0.8rem 1.5rem', fontSize: '1rem', background: 'var(--accent-cyan)', border: 'none', borderRadius: '8px', color: 'black', fontWeight: 'bold', cursor: currentStep === pipeline.length ? 'not-allowed' : 'pointer', opacity: currentStep === pipeline.length ? 0.5 : 1 }}
+        >
+          {lang === 'en' ? 'Next Step →' : lang === 'tr' ? 'Sonraki Adım →' : 'Келесі қадам →'}
+        </button>
+        <button 
+          onClick={() => setCurrentStep(pipeline.length)}
+          style={{ padding: '0.8rem 1.5rem', fontSize: '1rem', background: 'transparent', border: '1px solid var(--accent-cyan)', borderRadius: '8px', color: 'var(--accent-cyan)', cursor: 'pointer' }}
+        >
+          {lang === 'en' ? 'Show All' : lang === 'tr' ? 'Tümünü Göster' : 'Барлығын көрсету'}
+        </button>
+      </div>
+
       {/* Horizontal Pipeline */}
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', justifyContent: 'center', alignItems: 'center', maxWidth: '1200px' }}>
-        {pipeline.map((step, index) => (
-          <React.Fragment key={index}>
-            <div style={{ 
-              padding: '1rem 1.5rem', 
-              background: index === 0 ? '#37474f' : index === 6 ? 'rgba(142,36,170,0.3)' : index === pipeline.length-1 ? 'rgba(0,188,212,0.3)' : 'rgba(255,255,255,0.05)', 
-              border: `1px solid ${index === 0 ? '#546e7a' : index === 6 ? 'var(--accent-violet)' : index === pipeline.length-1 ? 'var(--accent-cyan)' : 'var(--border-color)'}`,
-              borderRadius: '8px', 
-              fontSize: '1rem',
-              fontWeight: 'bold',
-              whiteSpace: 'nowrap',
-              boxShadow: '0 4px 10px rgba(0,0,0,0.2)'
-            }}>
-              {lang === 'en' ? step.en : lang === 'tr' ? step.tr : step.kk}
-            </div>
-            {index < pipeline.length - 1 && (
-              <div style={{ color: 'var(--text-secondary)', fontSize: '1.5rem' }}>→</div>
-            )}
-          </React.Fragment>
-        ))}
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', justifyContent: 'center', alignItems: 'center', maxWidth: '1200px', margin: '0 auto' }}>
+        {pipeline.map((step, index) => {
+          const isVisible = index < currentStep;
+          const isActive = index === currentStep - 1;
+          
+          return (
+            <React.Fragment key={index}>
+              <div style={{ 
+                padding: '1rem 1.5rem', 
+                background: isActive ? 'rgba(0,188,212,0.2)' : isVisible ? (index === 0 ? '#37474f' : index === 6 ? 'rgba(142,36,170,0.3)' : index === pipeline.length-1 ? 'rgba(0,188,212,0.3)' : 'rgba(255,255,255,0.05)') : 'rgba(255,255,255,0.02)', 
+                border: `1px solid ${isActive ? 'var(--accent-cyan)' : isVisible ? (index === 0 ? '#546e7a' : index === 6 ? 'var(--accent-violet)' : index === pipeline.length-1 ? 'var(--accent-cyan)' : 'var(--border-color)') : 'rgba(255,255,255,0.1)'}`,
+                borderRadius: '8px', 
+                fontSize: '1rem',
+                fontWeight: 'bold',
+                whiteSpace: 'nowrap',
+                color: isVisible ? 'white' : 'rgba(255,255,255,0.3)',
+                boxShadow: isActive ? '0 0 15px rgba(0,188,212,0.5)' : (isVisible ? '0 4px 10px rgba(0,0,0,0.2)' : 'none'),
+                transform: isActive ? 'scale(1.05)' : 'scale(1)',
+                transition: 'all 0.3s ease',
+                opacity: isVisible ? 1 : 0.4
+              }}>
+                {lang === 'en' ? step.en : lang === 'tr' ? step.tr : step.kk}
+              </div>
+              {index < pipeline.length - 1 && (
+                <div style={{ 
+                  color: isVisible && index < currentStep - 1 ? 'var(--text-secondary)' : 'rgba(255,255,255,0.1)', 
+                  fontSize: '1.5rem',
+                  transition: 'color 0.3s ease'
+                }}>→</div>
+              )}
+            </React.Fragment>
+          );
+        })}
       </div>
     </div>
   );
