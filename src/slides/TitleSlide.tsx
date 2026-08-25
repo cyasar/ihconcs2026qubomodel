@@ -22,13 +22,17 @@ export const Slide01_Title: React.FC<SlideProps> = ({ lang }) => {
           <div style={{ padding: '1.5rem', background: 'var(--bg-secondary)', borderRadius: '12px', border: '1px solid var(--border-color)', boxShadow: '0 10px 30px rgba(0,0,0,0.3)', flex: 1, maxWidth: '400px' }}>
             <p style={{ margin: '0 0 0.5rem 0', fontWeight: 'bold', fontSize: '1.2rem', color: 'var(--text-primary)' }}>Cumali Yaşar</p>
             <p style={{ margin: '0', color: 'var(--text-secondary)' }}>
-              {lang === 'en' ? 'Çanakkale Onsekiz Mart University, Türkiye' : 'Çanakkale Onsekiz Mart Üniversitesi, Türkiye'}
+              {lang === 'en' ? 'Çanakkale Onsekiz Mart University, Türkiye' : 
+               lang === 'tr' ? 'Çanakkale Onsekiz Mart Üniversitesi, Türkiye' : 
+               'Чанаккале Онсекиз Март Университеті, Түркия'}
             </p>
           </div>
           <div style={{ padding: '1.5rem', background: 'var(--bg-secondary)', borderRadius: '12px', border: '1px solid var(--border-color)', boxShadow: '0 10px 30px rgba(0,0,0,0.3)', flex: 1, maxWidth: '400px' }}>
             <p style={{ margin: '0 0 0.5rem 0', fontWeight: 'bold', fontSize: '1.2rem', color: 'var(--text-primary)' }}>Yerlan Izbassarov</p>
             <p style={{ margin: '0', color: 'var(--text-secondary)' }}>
-              {lang === 'en' ? 'Khalel Dosmukhamedov Atyrau University, Kazakhstan' : 'Khalel Dosmukhamedov Atyrau Üniversitesi, Kazakistan'}
+              {lang === 'en' ? 'Khalel Dosmukhamedov Atyrau University, Kazakhstan' : 
+               lang === 'tr' ? 'Khalel Dosmukhamedov Atyrau Üniversitesi, Kazakistan' : 
+               'Халел Досмұхамедов атындағы Атырау Университеті, Қазақстан'}
             </p>
           </div>
         </div>

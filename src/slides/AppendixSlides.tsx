@@ -7,16 +7,18 @@ export const Slide21_AppendixMath: React.FC<SlideProps> = ({ lang }) => (
       APPENDIX A1
     </div>
     <h2 style={{ fontSize: '2.5rem', marginBottom: '2rem' }}>
-      {lang === 'en' ? 'Appendix: Detailed Mathematics' : 'Ekler: Detaylı Matematik'}
+      {lang === 'en' ? 'Appendix: Detailed Mathematics' : 
+       lang === 'tr' ? 'Ekler: Detaylı Matematik' : 
+       'Қосымша: Егжей-тегжейлі математика'}
     </h2>
     <div className="card" style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'left' }}>
-      <h4 style={{ color: 'var(--accent-cyan)' }}>{lang === 'en' ? 'Scaling and Discretisation' : 'Ölçeklendirme ve Ayrıklaştırma'}</h4>
-      <div style={{ fontFamily: 'var(--font-mono)', fontSize: '1.2rem', marginBottom: '2rem' }}>
-        {"x = x_min + \\frac{x_max - x_min}{2^N - 1} \\sum_{i=0}^{N-1} 2^i q_i"}
+      <h4 style={{ color: 'var(--accent-cyan)' }}>{lang === 'en' ? 'Scaling and Discretisation' : lang === 'tr' ? 'Ölçeklendirme ve Ayrıklaştırma' : 'Масштабтау және дискретизация'}</h4>
+      <div style={{ fontFamily: 'var(--font-mono)', fontSize: '1.4rem', marginBottom: '2rem', background: 'rgba(255,255,255,0.05)', padding: '1rem', borderRadius: '8px' }}>
+        x = x<sub>min</sub> + [(x<sub>max</sub> - x<sub>min</sub>) / (2<sup>N</sup> - 1)] <span style={{ fontSize: '1.2em' }}>Σ</span>(2<sup>i</sup> q<sub>i</sub>)
       </div>
-      <h4 style={{ color: 'var(--accent-violet)' }}>{lang === 'en' ? 'Quadratic Penalty Formulation' : 'Karesel Ceza Formülasyonu'}</h4>
-      <div style={{ fontFamily: 'var(--font-mono)', fontSize: '1.2rem' }}>
-        {"P(x) = \\lambda \\left[ \\sum_{j} \\max(0, g_j(x))^2 \\right]"}
+      <h4 style={{ color: 'var(--accent-violet)' }}>{lang === 'en' ? 'Quadratic Penalty Formulation' : lang === 'tr' ? 'Karesel Ceza Formülasyonu' : 'Квадраттық жаза формуласы'}</h4>
+      <div style={{ fontFamily: 'var(--font-mono)', fontSize: '1.4rem', background: 'rgba(255,255,255,0.05)', padding: '1rem', borderRadius: '8px' }}>
+        P(x) = λ [ <span style={{ fontSize: '1.2em' }}>Σ</span> max(0, g<sub>j</sub>(x))<sup>2</sup> ]
       </div>
     </div>
   </div>
@@ -28,7 +30,9 @@ export const Slide22_AppendixQAOA: React.FC<SlideProps> = ({ lang }) => (
       APPENDIX A2
     </div>
     <h2 style={{ fontSize: '2.5rem', marginBottom: '2rem' }}>
-      {lang === 'en' ? 'Appendix: QAOA Circuit' : 'Ekler: QAOA Devresi'}
+      {lang === 'en' ? 'Appendix: QAOA Circuit' : 
+       lang === 'tr' ? 'Ekler: QAOA Devresi' : 
+       'Қосымша: QAOA схемасы'}
     </h2>
     <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', flexWrap: 'wrap' }}>
       <div style={{ padding: '2rem', border: '1px solid var(--border-color)', borderRadius: '8px', background: 'var(--bg-secondary)', width: '600px' }}>

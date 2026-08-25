@@ -2,13 +2,13 @@ import { useState, useEffect } from 'react';
 import { slides } from './content/slides';
 import type { Language } from './content/types';
 import { uiTranslations } from './i18n';
-import { Monitor, Shield, AlertTriangle, ChevronRight, ChevronLeft, LayoutGrid, Smartphone } from 'lucide-react';
+import { ChevronRight, ChevronLeft, LayoutGrid, Smartphone } from 'lucide-react';
 
 function App() {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const [lang, setLang] = useState<Language>('en');
   const [showNotes, setShowNotes] = useState(false);
-  const [safeMode, setSafeMode] = useState(true);
+  const [safeMode] = useState(true);
   const [showGrid, setShowGrid] = useState(false);
   
   // Parse hash on load
@@ -49,7 +49,9 @@ function App() {
   }, [lang]);
 
   const CurrentSlideComponent = slides[currentSlideIndex].component;
-  const currentNotes = lang === 'en' ? slides[currentSlideIndex].notesEn : slides[currentSlideIndex].notesTr;
+  const currentNotes = lang === 'en' ? slides[currentSlideIndex].notesEn : 
+                       lang === 'tr' ? slides[currentSlideIndex].notesTr : 
+                       slides[currentSlideIndex].notesKk;
   const progress = ((currentSlideIndex + 1) / slides.length) * 100;
   const t = uiTranslations[lang];
 
@@ -59,9 +61,15 @@ function App() {
       {/* Mobile Rotate Overlay */}
       <div className="mobile-rotate-overlay">
         <Smartphone size={64} style={{ color: 'var(--accent-cyan)', marginBottom: '1rem', animation: 'pulse 2s infinite' }} />
-        <h2>{lang === 'en' ? 'Please rotate your device' : 'Lütfen cihazınızı yan çevirin'}</h2>
+        <h2>
+          {lang === 'en' ? 'Please rotate your device' : 
+           lang === 'tr' ? 'Lütfen cihazınızı yan çevirin' : 
+           'Құрылғыны бұрыңыз'}
+        </h2>
         <p style={{ color: 'var(--text-secondary)' }}>
-          {lang === 'en' ? 'This presentation is designed for landscape mode.' : 'Bu sunum yatay mod için tasarlanmıştır.'}
+          {lang === 'en' ? 'This presentation is designed for landscape mode.' : 
+           lang === 'tr' ? 'Bu sunum yatay mod için tasarlanmıştır.' : 
+           'Бұл презентация ландшафт режиміне арналған.'}
         </p>
       </div>
 
@@ -70,28 +78,32 @@ function App() {
       </div>
 
       <div className="top-controls">
-        <button 
-          onClick={() => setLang(lang === 'en' ? 'tr' : 'en')}
-          title="Toggle Language"
-        >
-          {lang === 'en' ? 'TR' : 'EN'}
-        </button>
-        <button 
-          className={safeMode ? 'active' : ''} 
-          onClick={() => setSafeMode(!safeMode)}
-          title="Toggle Safe Mode"
-          style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}
-        >
-          {safeMode ? <Shield size={16} /> : <AlertTriangle size={16} color="#f44336" />}
-          {safeMode ? t.safeMode : 'Lab Mode'}
-        </button>
-        <button 
-          className={showNotes ? 'active-violet' : ''} 
-          onClick={() => setShowNotes(!showNotes)}
-          title="Toggle Presenter Notes (N)"
-        >
-          <Monitor size={16} />
-        </button>
+        <div style={{ display: 'flex', gap: '0.2rem', background: 'rgba(0,0,0,0.3)', padding: '0.2rem', borderRadius: '8px' }}>
+          <button 
+            className={lang === 'en' ? 'active' : ''} 
+            onClick={() => setLang('en')}
+            title="English"
+            style={{ padding: '0.4rem 0.8rem', borderRadius: '6px' }}
+          >
+            EN
+          </button>
+          <button 
+            className={lang === 'tr' ? 'active' : ''} 
+            onClick={() => setLang('tr')}
+            title="Türkçe"
+            style={{ padding: '0.4rem 0.8rem', borderRadius: '6px' }}
+          >
+            TR
+          </button>
+          <button 
+            className={lang === 'kk' ? 'active' : ''} 
+            onClick={() => setLang('kk')}
+            title="Қазақша"
+            style={{ padding: '0.4rem 0.8rem', borderRadius: '6px' }}
+          >
+            KK
+          </button>
+        </div>
         <button 
           className={showGrid ? 'active' : ''} 
           onClick={() => setShowGrid(!showGrid)}
@@ -122,10 +134,14 @@ function App() {
         <img src="./ihconcs_logo.png" alt="IHCONCS Logo" style={{ height: '35px', objectFit: 'contain' }} />
         <div style={{ textAlign: 'center' }}>
           <h4 style={{ margin: '0 0 0.2rem 0', color: 'var(--text-primary)', fontSize: '0.9rem' }}>
-            {lang === 'en' ? 'The International Conference on Computer Sciences (IHCONCS 2026)' : 'Uluslararası Bilgisayar Bilimleri Konferansı (IHCONCS 2026)'}
+            {lang === 'en' ? 'The International Conference on Computer Sciences (IHCONCS 2026)' : 
+             lang === 'tr' ? 'Uluslararası Bilgisayar Bilimleri Konferansı (IHCONCS 2026)' : 
+             'Халықаралық компьютерлік ғылымдар конференциясы (IHCONCS 2026)'}
           </h4>
           <p style={{ margin: '0', fontSize: '0.7rem', color: 'var(--text-secondary)' }}>
-            {lang === 'en' ? 'September 17-18, 2026 • Zagreb, Croatia (Hybrid)' : '17-18 Eylül 2026 • Zagreb, Hırvatistan (Hibrit)'}
+            {lang === 'en' ? 'September 17-18, 2026 • Zagreb, Croatia (Hybrid)' : 
+             lang === 'tr' ? '17-18 Eylül 2026 • Zagreb, Hırvatistan (Hibrit)' : 
+             '17-18 Қыркүйек 2026 • Загреб, Хорватия (Гибрид)'}
           </p>
         </div>
         <img src="./ihconcs.png" alt="IHCONCS" style={{ height: '35px', objectFit: 'contain' }} />
@@ -153,7 +169,9 @@ function App() {
             >
               <div className="overview-card-number">Slide {slide.id}</div>
               <div className="overview-card-title">
-                {lang === 'en' ? slide.titleEn : slide.titleTr}
+                {lang === 'en' ? slide.titleEn : 
+                 lang === 'tr' ? slide.titleTr : 
+                 slide.titleKk}
               </div>
             </div>
           ))}

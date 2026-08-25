@@ -1,6 +1,6 @@
 import React from 'react';
 
-export type Language = 'en' | 'tr';
+export type Language = 'en' | 'tr' | 'kk';
 
 export interface SlideProps {
   lang: Language;
@@ -12,6 +12,8 @@ export interface SlideDefinition {
   component: React.FC<SlideProps>;
   titleEn: string;
   titleTr: string;
+  titleKk: string;
   notesEn: string;
   notesTr: string;
+  notesKk: string;
 }

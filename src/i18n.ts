@@ -22,5 +22,17 @@ export const uiTranslations = {
     safeMode: "Güvenli Mod Aktif",
     presenterMode: "Sunucu Modu",
     pressQuestionMark: "Kısayollar için '?' tuşuna basın"
+  },
+  kk: {
+    next: "Келесі →",
+    prev: "← Алдыңғы",
+    home: "Басына қайту",
+    overview: "Шолу",
+    notes: "Жазбалар",
+    fullscreen: "Толық экран",
+    slides: "Слайдтар",
+    safeMode: "Қауіпсіз режим белсенді",
+    presenterMode: "Спикер режимі",
+    pressQuestionMark: "Пернетақта таңбашалары үшін '?' басыңыз"
   }
 };

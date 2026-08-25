@@ -17,16 +17,20 @@ export const Slide09_CaseStudy: React.FC<SlideProps> = ({ lang }) => {
   return (
     <div className="slide-content">
       <h2 style={{ fontSize: '2.8rem', marginBottom: '2rem' }}>
-        {lang === 'en' ? 'A Production Planning Problem' : 'Bir Üretim Planlama Problemi'}
+        {lang === 'en' ? 'A Production Planning Problem' : 
+         lang === 'tr' ? 'Bir Üretim Planlama Problemi' : 
+         'Өндірісті жоспарлау мәселесі'}
       </h2>
       
       <div className="grid-2-col">
         
         {/* Left: Interactive Controls */}
         <div className="card" style={{ textAlign: 'left' }}>
-          <h4 style={{ color: 'var(--accent-cyan)' }}>{lang === 'en' ? 'Production Variables' : 'Üretim Değişkenleri'}</h4>
+          <h4 style={{ color: 'var(--accent-cyan)' }}>{lang === 'en' ? 'Production Variables' : lang === 'tr' ? 'Üretim Değişkenleri' : 'Өндіріс айнымалылары'}</h4>
           <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginBottom: '1.5rem' }}>
-            {lang === 'en' ? 'Adjust production levels to see nonlinear effects.' : 'Doğrusal olmayan etkileri görmek için üretim seviyelerini ayarlayın.'}
+            {lang === 'en' ? 'Adjust production levels to see nonlinear effects.' : 
+             lang === 'tr' ? 'Doğrusal olmayan etkileri görmek için üretim seviyelerini ayarlayın.' : 
+             'Сызықтық емес әсерлерді көру үшін өндіріс деңгейлерін реттеңіз.'}
           </p>
 
           <div style={{ marginBottom: '1.5rem' }}>
@@ -47,20 +51,20 @@ export const Slide09_CaseStudy: React.FC<SlideProps> = ({ lang }) => {
         {/* Right: Dynamic Outputs */}
         <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: '1rem', background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(255,255,255,0.1)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '1rem', borderBottom: '1px solid var(--border-color)' }}>
-            <span style={{ color: 'var(--text-secondary)' }}>{lang === 'en' ? 'Revenue (+)' : 'Gelir (+)'}</span>
+            <span style={{ color: 'var(--text-secondary)' }}>{lang === 'en' ? 'Revenue (+)' : lang === 'tr' ? 'Gelir (+)' : 'Табыс (+)'}</span>
             <span style={{ color: '#4caf50', fontWeight: 'bold' }}>{revenue.toFixed(1)}</span>
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '1rem', borderBottom: '1px solid var(--border-color)' }}>
-            <span style={{ color: 'var(--text-secondary)' }}>{lang === 'en' ? 'Nonlinear Cost (-)' : 'Doğrusal Olmayan Maliyet (-)'}</span>
+            <span style={{ color: 'var(--text-secondary)' }}>{lang === 'en' ? 'Nonlinear Cost (-)' : lang === 'tr' ? 'Doğrusal Olmayan Maliyet (-)' : 'Сызықтық емес шығын (-)'}</span>
             <span style={{ color: '#f44336', fontWeight: 'bold' }}>{cost.toFixed(1)}</span>
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: '0.5rem', fontSize: '1.5rem' }}>
-            <span style={{ color: 'white', fontWeight: 'bold' }}>{lang === 'en' ? 'Profit' : 'Kâr'}</span>
+            <span style={{ color: 'white', fontWeight: 'bold' }}>{lang === 'en' ? 'Profit' : lang === 'tr' ? 'Kâr' : 'Пайда'}</span>
             <span style={{ color: 'var(--accent-cyan)', fontWeight: 'bold' }}>{profit.toFixed(1)}</span>
           </div>
 
           <div style={{ marginTop: '1rem', padding: '1rem', background: 'var(--bg-secondary)', borderRadius: '8px' }}>
-            <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>{lang === 'en' ? 'Resource Usage' : 'Kaynak Kullanımı'}</div>
+            <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>{lang === 'en' ? 'Resource Usage' : lang === 'tr' ? 'Kaynak Kullanımı' : 'Ресурстарды пайдалану'}</div>
             <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', marginBottom: '0.3rem' }}>
               <span style={{ width: '60px', fontSize: '0.8rem' }}>Res 1</span>
               <div style={{ flex: 1, height: '8px', background: 'rgba(255,255,255,0.1)', borderRadius: '4px', overflow: 'hidden' }}>
@@ -84,21 +88,25 @@ export const Slide09_CaseStudy: React.FC<SlideProps> = ({ lang }) => {
 export const Slide10_NonlinearObjective: React.FC<SlideProps> = ({ lang }) => (
   <div className="slide-content">
     <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>
-      {lang === 'en' ? 'Why Is the Problem Nonlinear?' : 'Problem Neden Doğrusal Değildir?'}
+      {lang === 'en' ? 'Why Is the Problem Nonlinear?' : 
+       lang === 'tr' ? 'Problem Neden Doğrusal Değildir?' : 
+       'Мәселе неліктен сызықтық емес?'}
     </h2>
     <p style={{ color: 'var(--text-secondary)', fontSize: '1.2rem', marginBottom: '2rem' }}>
-      {lang === 'en' ? 'Revenue increases with production. But cost also increases nonlinearly.' : 'Gelir üretimle birlikte artar. Ancak maliyetler de doğrusal olmayan bir şekilde artar.'}
+      {lang === 'en' ? 'Revenue increases with production. But cost also increases nonlinearly.' : 
+       lang === 'tr' ? 'Gelir üretimle birlikte artar. Ancak maliyetler de doğrusal olmayan bir şekilde artar.' : 
+       'Табыс өндіріспен бірге өседі. Бірақ шығындар да сызықтық емес түрде артады.'}
     </p>
 
     <div className="grid-2-col" style={{ alignItems: 'start' }}>
       <div style={{ textAlign: 'left' }}>
-        <h4 style={{ color: 'var(--accent-violet)' }}>{lang === 'en' ? 'Possible reasons for nonlinearity:' : 'Doğrusal olmamanın olası nedenleri:'}</h4>
+        <h4 style={{ color: 'var(--accent-violet)' }}>{lang === 'en' ? 'Possible reasons for nonlinearity:' : lang === 'tr' ? 'Doğrusal olmamanın olası nedenleri:' : 'Сызықтық еместіктің ықтимал себептері:'}</h4>
         <ul style={{ fontSize: '1.1rem', lineHeight: '2', color: 'var(--text-primary)', background: 'rgba(142,36,170,0.05)', padding: '2rem 3rem', borderRadius: '12px', border: '1px solid rgba(142,36,170,0.2)' }}>
-          <li>{lang === 'en' ? 'overtime labour' : 'fazla mesai maliyetleri'}</li>
-          <li>{lang === 'en' ? 'machine wear' : 'makine yıpranması'}</li>
-          <li>{lang === 'en' ? 'storage limitations' : 'depolama sınırları'}</li>
-          <li>{lang === 'en' ? 'coordination cost' : 'koordinasyon maliyeti'}</li>
-          <li>{lang === 'en' ? 'production interference' : 'üretim çakışmaları'}</li>
+          <li>{lang === 'en' ? 'overtime labour' : lang === 'tr' ? 'fazla mesai maliyetleri' : 'үстеме жұмыс шығындары'}</li>
+          <li>{lang === 'en' ? 'machine wear' : lang === 'tr' ? 'makine yıpranması' : 'машинаның тозуы'}</li>
+          <li>{lang === 'en' ? 'storage limitations' : lang === 'tr' ? 'depolama sınırları' : 'сақтау шектеулері'}</li>
+          <li>{lang === 'en' ? 'coordination cost' : lang === 'tr' ? 'koordinasyon maliyeti' : 'үйлестіру шығыны'}</li>
+          <li>{lang === 'en' ? 'production interference' : lang === 'tr' ? 'üretim çakışmaları' : 'өндірістегі кедергілер'}</li>
         </ul>
       </div>
 
@@ -111,7 +119,7 @@ export const Slide10_NonlinearObjective: React.FC<SlideProps> = ({ lang }) => (
           <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)', backgroundSize: '40px 40px', transform: 'perspective(500px) rotateX(60deg) scale(2)', transformOrigin: 'top' }}></div>
           
           <div style={{ position: 'relative', zIndex: 1, padding: '1rem', background: 'rgba(0,0,0,0.8)', border: '1px solid var(--accent-cyan)', borderRadius: '8px', color: 'white', fontWeight: 'bold' }}>
-            {lang === 'en' ? 'Conceptual Profit Surface' : 'Kavramsal Kâr Yüzeyi'}
+            {lang === 'en' ? 'Conceptual Profit Surface' : lang === 'tr' ? 'Kavramsal Kâr Yüzeyi' : 'Тұжырымдамалық пайда беті'}
           </div>
         </div>
       </div>
@@ -122,30 +130,32 @@ export const Slide10_NonlinearObjective: React.FC<SlideProps> = ({ lang }) => (
 export const Slide11_FeasibleRegion: React.FC<SlideProps> = ({ lang }) => (
   <div className="slide-content">
     <h2 style={{ fontSize: '2.5rem', marginBottom: '2rem' }}>
-      {lang === 'en' ? 'Constraints Define What Is Possible' : 'Kısıtlar Nelerin Mümkün Olduğunu Belirler'}
+      {lang === 'en' ? 'Constraints Define What Is Possible' : 
+       lang === 'tr' ? 'Kısıtlar Nelerin Mümkün Olduğunu Belirler' : 
+       'Шектеулер ненің мүмкін екенін анықтайды'}
     </h2>
 
     <div style={{ display: 'flex', gap: '4rem', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
       
       {/* Constraints List */}
       <div style={{ flex: 1, textAlign: 'left', background: 'rgba(255,255,255,0.02)', padding: '2rem', borderRadius: '12px' }}>
-        <h4 style={{ color: 'var(--text-primary)', marginBottom: '1rem' }}>{lang === 'en' ? 'Boundaries:' : 'Sınırlar:'}</h4>
+        <h4 style={{ color: 'var(--text-primary)', marginBottom: '1rem' }}>{lang === 'en' ? 'Boundaries:' : lang === 'tr' ? 'Sınırlar:' : 'Шекаралар:'}</h4>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', fontSize: '1.1rem' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
             <div style={{ width: '20px', height: '4px', background: '#e91e63' }}></div>
-            <span>{lang === 'en' ? 'Resource constraint 1' : 'Kaynak kısıtı 1'}</span>
+            <span>{lang === 'en' ? 'Resource constraint 1' : lang === 'tr' ? 'Kaynak kısıtı 1' : 'Ресурс шектеуі 1'}</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
             <div style={{ width: '20px', height: '4px', background: '#ff9800' }}></div>
-            <span>{lang === 'en' ? 'Resource constraint 2' : 'Kaynak kısıtı 2'}</span>
+            <span>{lang === 'en' ? 'Resource constraint 2' : lang === 'tr' ? 'Kaynak kısıtı 2' : 'Ресурс шектеуі 2'}</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
             <div style={{ width: '20px', height: '4px', background: '#00bcd4' }}></div>
-            <span>{lang === 'en' ? 'Total production capacity' : 'Toplam üretim kapasitesi'}</span>
+            <span>{lang === 'en' ? 'Total production capacity' : lang === 'tr' ? 'Toplam üretim kapasitesi' : 'Жалпы өндірістік қуат'}</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
             <div style={{ width: '20px', height: '4px', background: '#fff' }}></div>
-            <span>{lang === 'en' ? 'Upper bounds' : 'Üst sınırlar'}</span>
+            <span>{lang === 'en' ? 'Upper bounds' : lang === 'tr' ? 'Üst sınırlar' : 'Жоғарғы шектер'}</span>
           </div>
         </div>
       </div>
@@ -175,7 +185,7 @@ export const Slide11_FeasibleRegion: React.FC<SlideProps> = ({ lang }) => (
         </svg>
 
         <div style={{ position: 'absolute', top: '50%', left: '30%', color: 'white', fontWeight: 'bold', fontSize: '1.2rem', textShadow: '0 0 10px black' }}>
-          {lang === 'en' ? 'FEASIBLE REGION' : 'OLURLU BÖLGE'}
+          {lang === 'en' ? 'FEASIBLE REGION' : lang === 'tr' ? 'OLURLU BÖLGE' : 'МҮМКІН АЙМАҚ'}
         </div>
       </div>
     </div>
@@ -184,21 +194,23 @@ export const Slide11_FeasibleRegion: React.FC<SlideProps> = ({ lang }) => (
 
 export const Slide12_Pipeline: React.FC<SlideProps> = ({ lang }) => {
   const steps = [
-    { en: '1. Variable scaling', tr: '1. Değişken ölçeklendirme' },
-    { en: '2. Discretisation', tr: '2. Ayrıklaştırma' },
-    { en: '3. Binary encoding', tr: '3. İkili (Binary) kodlama' },
-    { en: '4. Slack-variable introduction', tr: '4. Gevşek değişken ekleme' },
-    { en: '5. Penalty-based constraint embedding', tr: '5. Ceza tabanlı kısıt gömme' },
-    { en: '6. QUBO matrix construction', tr: '6. QUBO matrisi oluşturma' },
-    { en: '7. Solve', tr: '7. Çözüm' },
-    { en: '8. Decode', tr: '8. Kod Çözme' },
-    { en: '9. Validate in original problem space', tr: '9. Orijinal problem uzayında doğrulama' }
+    { en: '1. Variable scaling', tr: '1. Değişken ölçeklendirme', kk: '1. Айнымалыны масштабтау' },
+    { en: '2. Discretisation', tr: '2. Ayrıklaştırma', kk: '2. Дискретизация' },
+    { en: '3. Binary encoding', tr: '3. İkili (Binary) kodlama', kk: '3. Екілік кодтау' },
+    { en: '4. Slack-variable introduction', tr: '4. Gevşek değişken ekleme', kk: '4. Бос айнымалыларды енгізу' },
+    { en: '5. Penalty-based constraint embedding', tr: '5. Ceza tabanlı kısıt gömme', kk: '5. Жазаға негізделген шектеуді енгізу' },
+    { en: '6. QUBO matrix construction', tr: '6. QUBO matrisi oluşturma', kk: '6. QUBO матрицасын құру' },
+    { en: '7. Solve', tr: '7. Çözüm', kk: '7. Шешу' },
+    { en: '8. Decode', tr: '8. Kod Çözme', kk: '8. Декодтау' },
+    { en: '9. Validate in original problem space', tr: '9. Orijinal problem uzayında doğrulama', kk: '9. Түпнұсқа кеңістікте тексеру' }
   ];
 
   return (
     <div className="slide-content">
       <h2 style={{ fontSize: '2.8rem', color: 'var(--accent-cyan)', marginBottom: '3rem' }}>
-        {lang === 'en' ? 'From Nonlinear Optimization to QUBO' : 'Doğrusal Olmayan Optimizasyondan QUBO\'ya'}
+        {lang === 'en' ? 'From Nonlinear Optimization to QUBO' : 
+         lang === 'tr' ? 'Doğrusal Olmayan Optimizasyondan QUBO\'ya' : 
+         'Сызықтық емес оңтайландырудан QUBO-ға дейін'}
       </h2>
       
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1.5rem', maxWidth: '1200px' }}>
@@ -213,7 +225,7 @@ export const Slide12_Pipeline: React.FC<SlideProps> = ({ lang }) => {
             boxShadow: '0 5px 15px rgba(0,0,0,0.2)'
           }}>
             <span style={{ color: 'var(--accent-cyan)', fontSize: '1.1rem', fontWeight: 'bold' }}>
-              {lang === 'en' ? step.en : step.tr}
+              {lang === 'en' ? step.en : lang === 'tr' ? step.tr : step.kk}
             </span>
             {idx < steps.length - 1 && idx % 3 !== 2 && (
               <div style={{ position: 'absolute', right: '-15px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-secondary)' }}>→</div>
@@ -245,18 +257,20 @@ export const Slide13_BinaryEncoding: React.FC<SlideProps> = ({ lang }) => {
   return (
     <div className="slide-content">
       <h2 style={{ fontSize: '2.5rem', marginBottom: '2rem' }}>
-        {lang === 'en' ? 'Continuous Variables Must Become Bits' : 'Sürekli Değişkenler Bitlere Dönüşmeli'}
+        {lang === 'en' ? 'Continuous Variables Must Become Bits' : 
+         lang === 'tr' ? 'Sürekli Değişkenler Bitlere Dönüşmeli' : 
+         'Үздіксіз айнымалылар биттерге айналуы керек'}
       </h2>
       
       <div style={{ display: 'flex', gap: '3rem', justifyContent: 'center', alignItems: 'center' }}>
         <div style={{ fontSize: '2rem', color: 'var(--text-primary)' }}>x₁</div>
         <div style={{ color: 'var(--text-secondary)' }}>→</div>
         <div style={{ fontSize: '1.5rem', color: 'var(--accent-violet)', background: 'rgba(142,36,170,0.1)', padding: '0.5rem 1rem', borderRadius: '8px' }}>
-          {lang === 'en' ? 'scaled variable u₁' : 'ölçeklenmiş değişken u₁'}
+          {lang === 'en' ? 'scaled variable u₁' : lang === 'tr' ? 'ölçeklenmiş değişken u₁' : 'масштабталған u₁'}
         </div>
         <div style={{ color: 'var(--text-secondary)' }}>→</div>
         <div style={{ fontSize: '1.5rem', color: 'var(--accent-cyan)', background: 'rgba(0,188,212,0.1)', padding: '0.5rem 1rem', borderRadius: '8px' }}>
-          {lang === 'en' ? 'binary representation' : 'ikili gösterim'}
+          {lang === 'en' ? 'binary representation' : lang === 'tr' ? 'ikili gösterim' : 'екілік көрініс'}
         </div>
       </div>
 
@@ -288,16 +302,18 @@ export const Slide13_BinaryEncoding: React.FC<SlideProps> = ({ lang }) => {
         </div>
         
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', fontSize: '1.5rem' }}>
-          <div>{lang === 'en' ? 'Binary:' : 'İkili:'} <span style={{ fontFamily: 'var(--font-mono)', color: 'var(--accent-cyan)' }}>{bits[3]}{bits[2]}{bits[1]}{bits[0]}</span></div>
-          <div>{lang === 'en' ? 'Decimal (u₁):' : 'Ondalık (u₁):'} <span style={{ fontWeight: 'bold' }}>{decimal}</span></div>
-          <div style={{ color: 'var(--accent-violet)' }}>{lang === 'en' ? 'Scaled production (x₁ = 10u₁):' : 'Ölçeklenmiş üretim (x₁ = 10u₁):'} <span style={{ fontWeight: 'bold' }}>{scaledX}</span></div>
+          <div>{lang === 'en' ? 'Binary:' : lang === 'tr' ? 'İkili:' : 'Екілік:'} <span style={{ fontFamily: 'var(--font-mono)', color: 'var(--accent-cyan)' }}>{bits[3]}{bits[2]}{bits[1]}{bits[0]}</span></div>
+          <div>{lang === 'en' ? 'Decimal (u₁):' : lang === 'tr' ? 'Ondalık (u₁):' : 'Ондық (u₁):'} <span style={{ fontWeight: 'bold' }}>{decimal}</span></div>
+          <div style={{ color: 'var(--accent-violet)' }}>{lang === 'en' ? 'Scaled production (x₁ = 10u₁):' : lang === 'tr' ? 'Ölçeklenmiş üretim (x₁ = 10u₁):' : 'Өндіріс (x₁ = 10u₁):'} <span style={{ fontWeight: 'bold' }}>{scaledX}</span></div>
         </div>
       </div>
 
       <p style={{ marginTop: '2rem', color: 'var(--text-secondary)', fontSize: '1.2rem', maxWidth: '800px' }}>
         {lang === 'en' 
           ? 'A quantum-oriented optimiser manipulates binary decision representations rather than the original continuous variable directly.' 
-          : 'Kuantum-odaklı bir algoritma, doğrudan orijinal sürekli değişkeni değil, ikili karar gösterimlerini (bitleri) manipüle eder.'}
+          : lang === 'tr' 
+          ? 'Kuantum-odaklı bir algoritma, doğrudan orijinal sürekli değişkeni değil, ikili karar gösterimlerini (bitleri) manipüle eder.' 
+          : 'Кванттық бағдарланған оңтайландыру алгоритмі тікелей бастапқы үздіксіз айнымалыны емес, екілік шешімдерді басқарады.'}
       </p>
     </div>
   );
@@ -306,7 +322,9 @@ export const Slide13_BinaryEncoding: React.FC<SlideProps> = ({ lang }) => {
 export const Slide14_SlackVariables: React.FC<SlideProps> = ({ lang }) => (
   <div className="slide-content">
     <h2 style={{ fontSize: '2.8rem', color: 'white', marginBottom: '2rem' }}>
-      {lang === 'en' ? 'How Do Inequalities Enter QUBO?' : 'Eşitsizlikler QUBO\'ya Nasıl Girer?'}
+      {lang === 'en' ? 'How Do Inequalities Enter QUBO?' : 
+       lang === 'tr' ? 'Eşitsizlikler QUBO\'ya Nasıl Girer?' : 
+       'Теңсіздіктер QUBO-ға қалай енеді?'}
     </h2>
     
     <div className="grid-2-col" style={{ alignItems: 'center' }}>
@@ -314,21 +332,23 @@ export const Slide14_SlackVariables: React.FC<SlideProps> = ({ lang }) => (
         <div style={{ color: '#f44336', marginBottom: '1rem' }}>a₁x₁ + a₂x₂ ≤ B</div>
         <div style={{ textAlign: 'center', color: 'var(--text-secondary)', fontSize: '1.2rem', marginBottom: '1rem' }}>↓</div>
         <div style={{ color: '#4caf50', marginBottom: '1rem' }}>a₁x₁ + a₂x₂ <span style={{ color: 'var(--accent-cyan)', fontWeight: 'bold' }}>+ s</span> = B</div>
-        <div style={{ color: 'var(--text-secondary)', fontSize: '1.1rem' }}>{lang === 'en' ? 'where' : 'öyle ki'} <span style={{ color: 'var(--accent-cyan)' }}>s ≥ 0</span></div>
+        <div style={{ color: 'var(--text-secondary)', fontSize: '1.1rem' }}>{lang === 'en' ? 'where' : lang === 'tr' ? 'öyle ki' : 'мұндағы'} <span style={{ color: 'var(--accent-cyan)' }}>s ≥ 0</span></div>
       </div>
       
       <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: '2rem', alignItems: 'center' }}>
         <p style={{ fontSize: '1.2rem' }}>
-          {lang === 'en' ? 'Slack represents unused resource.' : 'Gevşek değişken (slack), kullanılmayan kaynağı temsil eder.'}
+          {lang === 'en' ? 'Slack represents unused resource.' : 
+           lang === 'tr' ? 'Gevşek değişken (slack), kullanılmayan kaynağı temsil eder.' : 
+           'Бос айнымалы (slack) пайдаланылмаған ресурсты білдіреді.'}
         </p>
         
         {/* Resource Tank Metaphor */}
         <div style={{ width: '100%', maxWidth: '300px', height: '200px', border: '4px solid var(--border-color)', borderRadius: '8px', position: 'relative', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', overflow: 'hidden' }}>
           <div style={{ position: 'absolute', top: '10%', width: '100%', textAlign: 'center', color: 'white', fontWeight: 'bold', zIndex: 2 }}>
-            Slack (s) = 25<br/><span style={{ fontSize: '0.8rem', fontWeight: 'normal' }}>({lang === 'en' ? 'Unused' : 'Kullanılmayan'})</span>
+            Slack (s) = 25<br/><span style={{ fontSize: '0.8rem', fontWeight: 'normal' }}>({lang === 'en' ? 'Unused' : lang === 'tr' ? 'Kullanılmayan' : 'Бос'})</span>
           </div>
           <div style={{ position: 'absolute', bottom: '20%', width: '100%', textAlign: 'center', color: 'white', fontWeight: 'bold', zIndex: 2 }}>
-            {lang === 'en' ? 'Used Resource' : 'Kullanılan Kaynak'} = 75
+            {lang === 'en' ? 'Used Resource' : lang === 'tr' ? 'Kullanılan Kaynak' : 'Пайдаланылған ресурс'} = 75
           </div>
           
           <div style={{ height: '25%', background: 'rgba(0,188,212,0.3)', width: '100%' }}></div>
@@ -336,7 +356,7 @@ export const Slide14_SlackVariables: React.FC<SlideProps> = ({ lang }) => (
         </div>
         
         <div style={{ color: 'var(--text-secondary)' }}>
-          {lang === 'en' ? 'Available resource (B) = 100' : 'Mevcut kaynak (B) = 100'}
+          {lang === 'en' ? 'Available resource (B) = 100' : lang === 'tr' ? 'Mevcut kaynak (B) = 100' : 'Қолда бар ресурс (B) = 100'}
         </div>
       </div>
     </div>
@@ -346,3 +366,153 @@ export const Slide14_SlackVariables: React.FC<SlideProps> = ({ lang }) => (
     </div>
   </div>
 );
+
+export const Slide12b_InteractivePipeline: React.FC<SlideProps> = ({ lang }) => {
+  const [activeStep, setActiveStep] = useState(0);
+
+  const stepDetails = [
+    {
+      title: { en: 'Variable Scaling', tr: 'Değişken Ölçeklendirme', kk: 'Айнымалыны масштабтау' },
+      math: <>x = x<sub>min</sub> + [(x<sub>max</sub> - x<sub>min</sub>) / (2<sup>N</sup> - 1)] &middot; u</>,
+      app: { en: 'Map continuous variables to a finite discrete range.', tr: 'Sürekli değişkenleri sonlu bir aralığa eşliyoruz.', kk: 'Үздіксіз айнымалыларды шектеулі ауқымға бейнелеу.' }
+    },
+    {
+      title: { en: 'Discretisation', tr: 'Ayrıklaştırma', kk: 'Дискретизация' },
+      math: <>u &isin; &#123;0, 1, 2, ..., 2<sup>N</sup> - 1&#125;</>,
+      app: { en: 'Divide the range into discrete integer steps.', tr: 'Aralığı ayrık adımlara bölüyoruz.', kk: 'Диапазонды дискретті қадамдарға бөлу.' }
+    },
+    {
+      title: { en: 'Binary Encoding', tr: 'İkili (Binary) Kodlama', kk: 'Екілік кодтау' },
+      math: <>u = <span style={{ fontSize: '1.2em' }}>&Sigma;</span> (2<sup>i</sup> q<sub>i</sub>) &nbsp;&nbsp; (q<sub>i</sub> &isin; &#123;0, 1&#125;)</>,
+      app: { en: 'Represent integers as binary qubits.', tr: 'Tam sayıları ikili (binary) kübitler olarak ifade ediyoruz.', kk: 'Бүтін сандарды екілік кубиттер ретінде көрсету.' }
+    },
+    {
+      title: { en: 'Slack-variable Introduction', tr: 'Gevşek Değişken Ekleme', kk: 'Бос айнымалыларды енгізу' },
+      math: <>g(x) &le; B &rArr; g(x) + s = B</>,
+      app: { en: 'Convert inequality constraints into equalities.', tr: 'Eşitsizlik kısıtlarını eşitliklere dönüştürüyoruz.', kk: 'Теңсіздік шектеулерін теңдіктерге айналдыру.' }
+    },
+    {
+      title: { en: 'Penalty-based Constraint Embedding', tr: 'Ceza Tabanlı Kısıt Gömme', kk: 'Жазаға негізделген шектеуді енгізу' },
+      math: <>P(x) = &lambda; [g(x) + s - B]<sup>2</sup></>,
+      app: { en: 'Add squared penalties to the objective function.', tr: 'Amaç fonksiyonuna karesel cezalar ekliyoruz.', kk: 'Мақсатты функцияға квадраттық жазаларды қосу.' }
+    },
+    {
+      title: { en: 'QUBO Matrix Construction', tr: 'QUBO Matrisi Oluşturma', kk: 'QUBO матрицасын құру' },
+      math: <>min<sub>q</sub> q<sup>T</sup> Q q</>,
+      app: { en: 'Expand formulas and collect coefficients into matrix Q.', tr: 'Formülleri genişletip katsayıları Q matrisine topluyoruz.', kk: 'Формулаларды кеңейтіп, коэффициенттерді Q матрицасына жинау.' }
+    },
+    {
+      title: { en: 'Solve', tr: 'Çözüm', kk: 'Шешу' },
+      math: <>q<sup>*</sup> = argmin<sub>q</sub> (q<sup>T</sup> Q q)</>,
+      app: { en: 'Use QAOA, SA, or exact solvers to find the optimal bitstring.', tr: 'En uygun bit dizisini bulmak için kuantum veya klasik çözücüler kullanıyoruz.', kk: 'Оңтайлы бит жолын табу үшін QAOA немесе QA пайдалану.' }
+    },
+    {
+      title: { en: 'Decode', tr: 'Kod Çözme', kk: 'Декодтау' },
+      math: <>q<sup>*</sup> &rArr; u<sup>*</sup> &rArr; x<sup>*</sup></>,
+      app: { en: 'Convert optimal bits back to integers and real values.', tr: 'Optimum bitleri tekrar tam sayılara ve gerçek değerlere dönüştürüyoruz.', kk: 'Оңтайлы биттерді бүтін сандар мен нақты мәндерге қайтару.' }
+    },
+    {
+      title: { en: 'Validate', tr: 'Orijinal Uzayda Doğrulama', kk: 'Түпнұсқа кеңістікте тексеру' },
+      math: <>f(x<sup>*</sup>) and g(x<sup>*</sup>) &le; B</>,
+      app: { en: 'Verify constraints and cost in original problem space.', tr: 'Orijinal problem uzayında kısıtları ve maliyeti doğruluyoruz.', kk: 'Түпнұсқа мәселе кеңістігінде шектеулер мен шығындарды тексеру.' }
+    }
+  ];
+
+  return (
+    <div className="slide-content" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+      <h2 style={{ fontSize: '2.5rem', marginBottom: '1.5rem' }}>
+        {lang === 'en' ? 'Step-by-Step Pipeline Walkthrough' : 
+         lang === 'tr' ? 'Adım Adım İş Akışı Ayrıntıları' : 
+         'Қадамдық жұмыс процесі'}
+      </h2>
+      
+      <div style={{ display: 'flex', gap: '2rem', flex: 1, overflow: 'hidden' }}>
+        
+        {/* Left Side: Steps List */}
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.5rem', overflowY: 'auto', paddingRight: '1rem' }}>
+          {stepDetails.map((step, idx) => (
+            <button
+              key={idx}
+              onClick={() => setActiveStep(idx)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '1rem',
+                padding: '1rem',
+                background: activeStep === idx ? 'var(--accent-cyan)' : 'var(--bg-secondary)',
+                color: activeStep === idx ? 'black' : 'white',
+                border: `1px solid ${activeStep === idx ? 'var(--accent-cyan)' : 'var(--border-color)'}`,
+                borderRadius: '8px',
+                textAlign: 'left',
+                transition: 'all 0.2s',
+                fontWeight: activeStep === idx ? 'bold' : 'normal'
+              }}
+            >
+              <div style={{ 
+                background: activeStep === idx ? 'black' : 'rgba(255,255,255,0.1)', 
+                color: activeStep === idx ? 'var(--accent-cyan)' : 'white',
+                width: '30px', height: '30px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', flexShrink: 0
+              }}>
+                {idx + 1}
+              </div>
+              <div style={{ fontSize: '1rem' }}>
+                {lang === 'en' ? step.title.en : lang === 'tr' ? step.title.tr : step.title.kk}
+              </div>
+            </button>
+          ))}
+        </div>
+
+        {/* Right Side: Step Details */}
+        <div style={{ flex: 1.5, display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+          
+          <div className="card" style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '3rem', textAlign: 'center', border: '2px solid var(--accent-cyan)' }}>
+            <h3 style={{ fontSize: '1.8rem', color: 'var(--accent-cyan)', marginBottom: '2rem' }}>
+              {(() => {
+                const s = stepDetails[activeStep];
+                return `${activeStep + 1}. ${lang === 'en' ? s.title.en : lang === 'tr' ? s.title.tr : s.title.kk}`;
+              })()}
+            </h3>
+
+            <div style={{ background: 'rgba(255,255,255,0.05)', padding: '2rem', borderRadius: '12px', width: '100%', marginBottom: '2rem' }}>
+              <div style={{ fontSize: '1.1rem', color: 'var(--text-secondary)', marginBottom: '1rem' }}>
+                {lang === 'en' ? 'Mathematics' : lang === 'tr' ? 'Matematik' : 'Математика'}
+              </div>
+              <div style={{ fontSize: '1.5rem', fontFamily: 'var(--font-mono)', color: 'white' }}>
+                {stepDetails[activeStep].math}
+              </div>
+            </div>
+
+            <div style={{ background: 'rgba(142,36,170,0.1)', border: '1px solid var(--accent-violet)', padding: '2rem', borderRadius: '12px', width: '100%' }}>
+              <div style={{ fontSize: '1.1rem', color: 'var(--text-secondary)', marginBottom: '1rem' }}>
+                {lang === 'en' ? 'Application' : lang === 'tr' ? 'Uygulama' : 'Қолданба'}
+              </div>
+              <div style={{ fontSize: '1.2rem', color: 'white' }}>
+                {lang === 'en' ? stepDetails[activeStep].app.en : 
+                 lang === 'tr' ? stepDetails[activeStep].app.tr : 
+                 stepDetails[activeStep].app.kk}
+              </div>
+            </div>
+            
+            <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem' }}>
+              <button 
+                onClick={() => setActiveStep(prev => Math.max(0, prev - 1))}
+                disabled={activeStep === 0}
+                style={{ background: 'var(--bg-secondary)', color: 'white', padding: '0.8rem 2rem', borderRadius: '8px', opacity: activeStep === 0 ? 0.5 : 1 }}
+              >
+                {lang === 'en' ? 'Previous' : lang === 'tr' ? 'Önceki' : 'Алдыңғы'}
+              </button>
+              <button 
+                onClick={() => setActiveStep(prev => Math.min(stepDetails.length - 1, prev + 1))}
+                disabled={activeStep === stepDetails.length - 1}
+                style={{ background: 'var(--accent-cyan)', color: 'black', padding: '0.8rem 2rem', borderRadius: '8px', fontWeight: 'bold', opacity: activeStep === stepDetails.length - 1 ? 0.5 : 1 }}
+              >
+                {lang === 'en' ? 'Next Step' : lang === 'tr' ? 'Sonraki Adım' : 'Келесі қадам'}
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  );
+};
