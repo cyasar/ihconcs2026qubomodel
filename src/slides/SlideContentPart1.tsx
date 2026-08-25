@@ -400,52 +400,128 @@ export const Slide07_ResearchGap: React.FC<SlideProps> = ({ lang }) => {
   );
 };
 
-export const Slide08_NovelContributions: React.FC<SlideProps> = ({ lang }) => (
-  <div className="slide-content">
-    <h2 style={{ fontSize: '2.8rem', marginBottom: '3rem', color: 'white' }}>
-      {lang === 'en' ? 'What Does This Study Contribute?' : 
-       lang === 'tr' ? 'Bu Çalışmanın Katkıları Nelerdir?' : 
-       'Бұл зерттеудің үлесі қандай?'}
-    </h2>
-    
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '2rem', width: '100%' }}>
+export const Slide08_NovelContributions: React.FC<SlideProps> = ({ lang }) => {
+  const [activeTab, setActiveTab] = React.useState<number | null>(null);
+
+  const concreteExamples = [
+    {
+      titleEn: '1. Transparent Workflow Example', titleTr: '1. Şeffaf İş Akışı Örneği', titleKk: '1. Ашық жұмыс процесінің мысалы',
+      descEn: 'From mathematical formulation to QUBO matrix: We explicitly show how a constraint like x₁ + x₂ ≤ 5 is mathematically squared, scaled by penalty λ, and embedded into the Q matrix without hiding intermediate steps.',
+      descTr: 'Matematiksel formülasyondan QUBO matrisine: x₁ + x₂ ≤ 5 gibi bir kısıtın matematiksel olarak nasıl karesinin alındığını, ceza çarpanı (λ) ile nasıl ölçeklendiğini ve ara adımları gizlemeden Q matrisine nasıl gömüldüğünü somut olarak gösteriyoruz.',
+      descKk: 'Математикалық формадан QUBO матрицасына: x₁ + x₂ ≤ 5 шектеуінің қалай квадратталатынын, λ жазалау көбейткішімен қалай масштабталатынын және Q матрицасына қалай енгізілетінін нақты көрсетеміз.'
+    },
+    {
+      titleEn: '2. Validation Example', titleTr: '2. Doğrulama (Validation) Örneği', titleKk: '2. Тексеру мысалы',
+      descEn: 'Classical vs QUBO: We first solve the problem using a classical optimizer (like SLSQP) which yields [x₁=2, x₂=3] at cost -15. Then we solve the derived QUBO matrix and prove that decoding the optimal bitstring matches exactly cost -15.',
+      descTr: 'Klasik ve QUBO Karşılaştırması: Problemi önce klasik bir çözücü (SLSQP) ile çözüp [x₁=2, x₂=3] ve maliyet=-15 sonucunu buluyoruz. Ardından ürettiğimiz QUBO matrisini çözüp, bit dizilimini geri kodladığımızda sonucun yine mükemmel şekilde -15 ile eşleştiğini kanıtlıyoruz.',
+      descKk: 'Классикалық және QUBO: Алдымен мәселені классикалық алгоритммен (SLSQP) шешіп, нәтижені табамыз. Содан кейін QUBO матрицасын шешіп, екі нәтиженің мінсіз сәйкес келетінін дәлелдейміз.'
+    },
+    {
+      titleEn: '3. Reproducible Python Example', titleTr: '3. Tekrarlanabilir Python Örneği', titleKk: '3. Қайталанатын Python мысалы',
+      descEn: 'Automated Pipeline: We provide Python code that automatically bridges SciPy (for classical modeling), Dimod (for QUBO formulation), and Qiskit/D-Wave (for quantum execution) in one seamless script.',
+      descTr: 'Otomatik Kod Akışı: SciPy (klasik modelleme için), Dimod (QUBO için) ve Qiskit/D-Wave (kuantum çözümü için) kütüphanelerini tek bir akışta birleştiren, herkesin çalıştırabileceği açık kaynaklı Python kodları sunuyoruz.',
+      descKk: 'Автоматтандырылған код: SciPy, Dimod және Qiskit/D-Wave кітапханаларын біріктіретін, кез келген адам іске қоса алатын ашық Python кодтарын ұсынамыз.'
+    }
+  ];
+
+  return (
+    <div className="slide-content" style={{ display: 'flex', flexDirection: 'column' }}>
+      <h2 style={{ fontSize: '2.8rem', marginBottom: '2rem', color: 'white' }}>
+        {lang === 'en' ? 'What Does This Study Contribute?' : 
+         lang === 'tr' ? 'Bu Çalışmanın Katkıları Nelerdir?' : 
+         'Бұл зерттеудің үлесі қандай?'}
+      </h2>
       
-      <div className="card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '3rem 2rem', borderTop: '4px solid #4CAF50' }}>
-        <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🔗</div>
-        <h3 style={{ color: '#4CAF50', fontSize: '1.2rem', marginBottom: '1rem', textTransform: 'uppercase', letterSpacing: '1px' }}>
-          {lang === 'en' ? 'Contribution 1' : lang === 'tr' ? 'Katkı 1' : 'Үлес 1'}
-        </h3>
-        <p style={{ fontSize: '1.1rem', margin: 0, color: 'var(--text-primary)' }}>
-          {lang === 'en' ? 'Transparent QUBO reformulation workflow.' : 
-           lang === 'tr' ? 'Şeffaf QUBO yeniden formülasyon iş akışı.' : 
-           'Ашық QUBO қайта тұжырымдау процесі.'}
-        </p>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '2rem', width: '100%', marginBottom: '2rem' }}>
+        {/* Card 1 */}
+        <div 
+          onClick={() => setActiveTab(activeTab === 0 ? null : 0)}
+          className="card" 
+          style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '2rem 1.5rem', borderTop: '4px solid #4CAF50', cursor: 'pointer', transform: activeTab === 0 ? 'scale(1.05)' : 'scale(1)', transition: 'all 0.3s', boxShadow: activeTab === 0 ? '0 10px 30px rgba(76, 175, 80, 0.3)' : 'none' }}>
+          <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🔗</div>
+          <h3 style={{ color: '#4CAF50', fontSize: '1.2rem', marginBottom: '1rem', textTransform: 'uppercase', letterSpacing: '1px', textAlign: 'center' }}>
+            {lang === 'en' ? 'Contribution 1' : lang === 'tr' ? 'Katkı 1' : 'Үлес 1'}
+          </h3>
+          <p style={{ fontSize: '1rem', margin: 0, color: 'var(--text-primary)', textAlign: 'center' }}>
+            {lang === 'en' ? 'Transparent QUBO reformulation workflow.' : 
+             lang === 'tr' ? 'Şeffaf QUBO yeniden formülasyon iş akışı.' : 
+             'Ашық QUBO қайта тұжырымдау процесі.'}
+          </p>
+          <div style={{ marginTop: '1rem', color: '#4CAF50', fontSize: '0.9rem' }}>
+            {lang === 'en' ? 'Click for example ↓' : lang === 'tr' ? 'Örnek için tıkla ↓' : 'Мысал үшін басыңыз ↓'}
+          </div>
+        </div>
+
+        {/* Card 2 */}
+        <div 
+          onClick={() => setActiveTab(activeTab === 1 ? null : 1)}
+          className="card" 
+          style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '2rem 1.5rem', borderTop: '4px solid #FF9800', cursor: 'pointer', transform: activeTab === 1 ? 'scale(1.05)' : 'scale(1)', transition: 'all 0.3s', boxShadow: activeTab === 1 ? '0 10px 30px rgba(255, 152, 0, 0.3)' : 'none' }}>
+          <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🔍</div>
+          <h3 style={{ color: '#FF9800', fontSize: '1.2rem', marginBottom: '1rem', textTransform: 'uppercase', letterSpacing: '1px', textAlign: 'center' }}>
+            {lang === 'en' ? 'Contribution 2' : lang === 'tr' ? 'Katkı 2' : 'Үлес 2'}
+          </h3>
+          <p style={{ fontSize: '1rem', margin: 0, color: 'var(--text-primary)', textAlign: 'center' }}>
+            {lang === 'en' ? 'Validation against a classical constrained optimiser.' : 
+             lang === 'tr' ? 'Klasik kısıtlı bir optimizasyon algoritmasına karşı doğrulama.' : 
+             'Классикалық алгоритмге қарсы тексеру.'}
+          </p>
+          <div style={{ marginTop: '1rem', color: '#FF9800', fontSize: '0.9rem' }}>
+            {lang === 'en' ? 'Click for example ↓' : lang === 'tr' ? 'Örnek için tıkla ↓' : 'Мысал үшін басыңыз ↓'}
+          </div>
+        </div>
+
+        {/* Card 3 */}
+        <div 
+          onClick={() => setActiveTab(activeTab === 2 ? null : 2)}
+          className="card" 
+          style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '2rem 1.5rem', borderTop: '4px solid var(--accent-cyan)', cursor: 'pointer', transform: activeTab === 2 ? 'scale(1.05)' : 'scale(1)', transition: 'all 0.3s', boxShadow: activeTab === 2 ? '0 10px 30px rgba(0, 188, 212, 0.3)' : 'none' }}>
+          <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🐍</div>
+          <h3 style={{ color: 'var(--accent-cyan)', fontSize: '1.2rem', marginBottom: '1rem', textTransform: 'uppercase', letterSpacing: '1px', textAlign: 'center' }}>
+            {lang === 'en' ? 'Contribution 3' : lang === 'tr' ? 'Katkı 3' : 'Үлес 3'}
+          </h3>
+          <p style={{ fontSize: '1rem', margin: 0, color: 'var(--text-primary)', textAlign: 'center' }}>
+            {lang === 'en' ? 'Reproducible Python workflow connecting Classical → QUBO → Quantum.' : 
+             lang === 'tr' ? 'Klasik → QUBO → Kuantum bağlantısını kuran Python iş akışı.' : 
+             'Классикалық → QUBO → Кванттық байланысын құратын Python процесі.'}
+          </p>
+          <div style={{ marginTop: '1rem', color: 'var(--accent-cyan)', fontSize: '0.9rem' }}>
+            {lang === 'en' ? 'Click for example ↓' : lang === 'tr' ? 'Örnek için tıkla ↓' : 'Мысал үшін басыңыз ↓'}
+          </div>
+        </div>
       </div>
 
-      <div className="card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '3rem 2rem', borderTop: '4px solid #FF9800' }}>
-        <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🔍</div>
-        <h3 style={{ color: '#FF9800', fontSize: '1.2rem', marginBottom: '1rem', textTransform: 'uppercase', letterSpacing: '1px' }}>
-          {lang === 'en' ? 'Contribution 2' : lang === 'tr' ? 'Katkı 2' : 'Үлес 2'}
-        </h3>
-        <p style={{ fontSize: '1.1rem', margin: 0, color: 'var(--text-primary)' }}>
-          {lang === 'en' ? 'Validation against a classical constrained optimiser.' : 
-           lang === 'tr' ? 'Klasik kısıtlı bir optimizasyon algoritmasına karşı doğrulama (validation).' : 
-           'Классикалық шектеулі оңтайландыру алгоритміне қарсы тексеру.'}
-        </p>
-      </div>
-
-      <div className="card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '3rem 2rem', borderTop: '4px solid var(--accent-cyan)' }}>
-        <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🐍</div>
-        <h3 style={{ color: 'var(--accent-cyan)', fontSize: '1.2rem', marginBottom: '1rem', textTransform: 'uppercase', letterSpacing: '1px' }}>
-          {lang === 'en' ? 'Contribution 3' : lang === 'tr' ? 'Katkı 3' : 'Үлес 3'}
-        </h3>
-        <p style={{ fontSize: '1.1rem', margin: 0, color: 'var(--text-primary)' }}>
-          {lang === 'en' ? 'Reproducible Python workflow connecting Classical → QUBO → Quantum-oriented optimization.' : 
-           lang === 'tr' ? 'Klasik → QUBO → Kuantum-odaklı optimizasyon bağlantısını kuran tekrarlanabilir Python iş akışı.' : 
-           'Классикалық → QUBO → Кванттық бағдарланған оңтайландыру байланысын құратын қайталанатын Python процесі.'}
-        </p>
+      {/* Concrete Example Box */}
+      <div style={{ 
+        minHeight: '150px',
+        padding: '2rem', 
+        background: 'rgba(255,255,255,0.05)', 
+        borderRadius: '12px', 
+        border: `1px solid ${activeTab === 0 ? '#4CAF50' : activeTab === 1 ? '#FF9800' : activeTab === 2 ? 'var(--accent-cyan)' : '#444'}`,
+        transition: 'all 0.3s',
+        opacity: activeTab !== null ? 1 : 0.3
+      }}>
+        {activeTab !== null ? (
+          <div>
+            <h4 style={{ 
+              color: activeTab === 0 ? '#4CAF50' : activeTab === 1 ? '#FF9800' : 'var(--accent-cyan)', 
+              marginTop: 0, fontSize: '1.4rem' 
+            }}>
+              {lang === 'en' ? concreteExamples[activeTab].titleEn : lang === 'tr' ? concreteExamples[activeTab].titleTr : concreteExamples[activeTab].titleKk}
+            </h4>
+            <p style={{ fontSize: '1.2rem', lineHeight: '1.6', color: 'var(--text-secondary)', margin: 0 }}>
+              {lang === 'en' ? concreteExamples[activeTab].descEn : lang === 'tr' ? concreteExamples[activeTab].descTr : concreteExamples[activeTab].descKk}
+            </p>
+          </div>
+        ) : (
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', color: 'var(--text-secondary)', fontStyle: 'italic', fontSize: '1.2rem' }}>
+            {lang === 'en' ? 'Select a contribution above to see a concrete example.' : 
+             lang === 'tr' ? 'Somut bir örnek görmek için yukarıdan bir katkıya tıklayın.' : 
+             'Мысалды көру үшін жоғарыдағы үлесті таңдаңыз.'}
+          </div>
+        )}
       </div>
 
     </div>
-  </div>
-);
+  );
+};
